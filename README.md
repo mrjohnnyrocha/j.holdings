@@ -1,4 +1,4 @@
-# jholding-v0
+# jholdings-v0
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
