@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+httpx
+python-dotenv
+backoff
+transformers
+groq
+python-multipart
+bitsandbytes
