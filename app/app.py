@@ -13,7 +13,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*", "http://localhost:3017"],  
+    allow_origins=["*", "http://localhost:3017", "http://localhost:7860"],  
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -53,14 +53,14 @@ async def fetch_news(query: str = "hi"):
 
 
 @app.post("/api/groq-response")
-async def generate_responses(message: str = Body(..., media_type="text/plain")):
+async def generate_responses(message: str = Body(..., media_type="text/plain"), history: str = ""):
     """
     Generate responses from the LLM in a streaming fashion using the Groq API and return them as HTML.
     """
     print("Received message:", message)
     try:
         chat_completion = await client.chat.completions.create(
-            messages=[{"role": "user", "content": message + KNOWLEDGE_PROMPT}],
+            messages=[{"role": "user", "content": message + KNOWLEDGE_PROMPT + history}],
             model=GROQ_MODEL_NAME
         )
         response_content = chat_completion.choices[0].message.content
