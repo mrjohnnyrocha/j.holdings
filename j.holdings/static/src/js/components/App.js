@@ -27,7 +27,8 @@ function App() {
     input = input.toLowerCase().trim();
     console.log('env secret:', process.env.REACT_APP_API_URL  )
     try {
-      const response = await fetch('${process.env.REACT_APP_API_URL}/api/groq-response', {
+      const url = `${process.env.REACT_APP_API_URL}/api/groq-response`;
+      const response = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'text/plain' },
         body: input
@@ -77,6 +78,7 @@ function App() {
     <div>
       <div className="logo-container">
         <img src={logo} alt="j Logo" className="chat-logo" />
+        <div id="logo-text"><br ></br>Welcome. Ask me anything about João Rocha.</div>
       </div>
       <div id="chat-container">
         <Message messages={messages} />
@@ -91,7 +93,7 @@ function App() {
             onChange={(e) => setUserInput(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && sendMessage(e)}
           />
-          <button onClick={sendMessage} className="send-button">Send</button>
+          <button onClick={sendMessage} className="send-button">Ask j</button>
         </div>
       </div>
     </div>

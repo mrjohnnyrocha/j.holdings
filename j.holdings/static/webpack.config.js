@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const DotEnv = require('dotenv-webpack');
 
 module.exports = {
   entry: './src/js/index.js', // Entry point of your application
@@ -50,7 +51,8 @@ module.exports = {
     }),
     new webpack.ProvidePlugin({
       process: 'process/browser',
-    })
+    }),
+    new DotEnv()
   ],
   resolve: {
     extensions: ['.js', '.jsx'],
