@@ -1,5 +1,5 @@
-// index.js
-import App from './components/App';
+//src/js/components/index.js
+import App from '../src/components/App';
 import React from 'react'; // This is required in files using JSX
 import { createRoot } from 'react-dom/client';
 
