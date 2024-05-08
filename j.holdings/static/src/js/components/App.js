@@ -1,16 +1,16 @@
-// components/App.js
+//components/App.js
 import React, { useState, useEffect, useRef } from 'react';
 import '../../css/style.css';
 import lottie from 'lottie-web';
-import logo from '../../assets/j_icon.png';
+import logo from '../../assets/j_logo_no_glow.png';
 import loadingAnimation from '../../assets/loading.json';
-import Message from './Message';
+import Message, { WelcomeMessage } from './Message';
+import InputArea from './InputArea';
 
 function App() {
   const [userInput, setUserInput] = useState('');
   const [messages, setMessages] = useState([
-    { type: 'j', html: 'Welcome to j AI assistant! I can provide you insights about the professional life of João Rocha.' },  // Initial message
-    { type: 'j', html: 'You can ask me anything regarding his portfolio, professional experience and skills, job history and education, or any other inquiries you may have.' }
+    { type: 'j', content: <WelcomeMessage /> },
   ]);
   const [isLoading, setIsLoading] = useState(false);
   const lottieContainerRef = useRef(null); // Ref for the Lottie container
@@ -19,13 +19,11 @@ function App() {
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
-  
-
 
   const getResponse = async (input) => {
     setIsLoading(true);
     input = input.toLowerCase().trim();
-    console.log('env secret:', process.env.REACT_APP_API_URL  )
+    console.log('env secret:', process.env.REACT_APP_API_URL)
     try {
       const url = `${process.env.REACT_APP_API_URL}/api/groq-response`;
       const response = await fetch(url, {
@@ -57,6 +55,27 @@ function App() {
     });
   };
 
+  function InfiniteScrollList() {
+    const [items, setItems] = useState([]);
+    const [page, setPage] = useState(1);
+
+    // Load items whenever the page changes
+    useEffect(() => {
+      loadItems();
+    }, [page]);
+
+    // Function to load more items
+    const loadItems = () => {
+      // Implement your logic to fetch more items (e.g., from an API)
+      // Append the new items to the existing ones
+      // Update the state using setItems
+    };
+
+    // ...
+  }
+
+
+
   useEffect(() => {
     if (isLoading) {
       const animation = lottie.loadAnimation({
@@ -78,13 +97,12 @@ function App() {
     <div>
       <div className="logo-container">
         <img src={logo} alt="j Logo" className="chat-logo" />
-        <div id="logo-text"><br ></br>Welcome. Ask me anything about João Rocha.</div>
       </div>
       <div id="chat-container">
         <Message messages={messages} />
         {isLoading && <div id="lottie" ref={lottieContainerRef}></div>}
-        <div style={{ float:"left", clear: "both" }} ref={messagesEndRef}></div> {/* New line for scrolling ref */}
-        <div id="input-area">
+        <div style={{ float: "left", clear: "both" }} ref={messagesEndRef}></div>
+         <div id="input-area">
           <input
             type="text"
             id="user-input"
@@ -93,7 +111,9 @@ function App() {
             onChange={(e) => setUserInput(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && sendMessage(e)}
           />
-          <button onClick={sendMessage} className="send-button">Ask j</button>
+          <button onClick={sendMessage} className="send-button">
+            Ask < logo />
+          </button> 
         </div>
       </div>
     </div>
