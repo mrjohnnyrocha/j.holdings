@@ -1,4 +1,4 @@
-//components/App.js
+//components/ChatWindow.js
 import React, { useState, useEffect, useRef } from 'react';
 import '../../css/style.css';
 import lottie from 'lottie-web';
@@ -7,7 +7,7 @@ import loadingAnimation from '../../assets/loading.json';
 import Message, { WelcomeMessage } from './Message';
 import InputArea from './InputArea';
 
-function App() {
+function ChatWindow() {
   const [userInput, setUserInput] = useState('');
   const [messages, setMessages] = useState([
     { type: 'j', content: <WelcomeMessage /> },
@@ -25,7 +25,7 @@ function App() {
     input = input.toLowerCase().trim();
     console.log('env secret:', process.env.REACT_APP_API_URL)
     try {
-      const url = `${process.env.REACT_APP_API_URL}/api/groq-response`;
+      const url = `${process.env.REACT_APP_API_URL}/api/chat`;
       const response = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'text/plain' },
@@ -67,7 +67,7 @@ function App() {
     // Function to load more items
     const loadItems = () => {
       // Implement your logic to fetch more items (e.g., from an API)
-      // Append the new items to the existing ones
+      // ChatWindowend the new items to the existing ones
       // Update the state using setItems
     };
 
@@ -95,10 +95,10 @@ function App() {
 
   return (
     <div>
-      <div className="logo-container">
-        <img src={logo} alt="j Logo" className="chat-logo" />
-      </div>
       <div id="chat-container">
+        <div className="logo-container">
+            <img src={logo} alt="j Logo" className="chat-logo" />
+        </div>
         <Message messages={messages} />
         {isLoading && <div id="lottie" ref={lottieContainerRef}></div>}
         <div style={{ float: "left", clear: "both" }} ref={messagesEndRef}></div>
@@ -120,4 +120,4 @@ function App() {
   );
 }
 
-export default App;
+export default ChatWindow;
