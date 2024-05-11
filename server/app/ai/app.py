@@ -2,16 +2,19 @@ from pydantic import BaseModel
 from fastapi import FastAPI, HTTPException, Body
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse, HTMLResponse
+from langchain_core.messages import HumanMessage
 from groq import AsyncGroq
 from pprint import pprint
-from logging import getLogger
+import logging
+
+logger = logging.getLogger(__name__)
 
 from agent import SentimentAnalysisAgent
 from configs import GROQ_API_KEY, GROQ_MODEL_NAME
 from news import getNews
 from prompts import SYSTEM_PROMPT, KNOWLEDGE_PROMPT
-from server.app.ai.graph import Graph
-from agent import ContextManagerAgent
+from graph import Graph
+
 
 client = AsyncGroq(api_key=GROQ_API_KEY)
 app = FastAPI()
@@ -69,9 +72,8 @@ async def generate_responses(
         agent = SentimentAnalysisAgent()
 
 
-        message = request['message']
+        message = request
         sentiment_summary, sentiment_score = agent.handle(message)
-     
 
         # Run
         inputs = {
@@ -81,25 +83,17 @@ async def generate_responses(
         }
 
         graph = Graph()
-        graph = graph.build()
-        for output in graph.stream(inputs):
-            for key, value in output.items():
-                # Node
-                print(f"Node '{key}':")
-                # Optional: print full state at each node
-                # pprint.pprint(value["keys"], indent=2, width=80, depth=None)
-            pprint.pprint("\n---\n")
+        app = graph.build()
 
-        # Final generation
-        pprint.pprint(value['keys']['generation'])
-        response_content = value['keys']['generation']
+        outputs = app.invoke(inputs)
+
         try:
             return HTMLResponse(
-                content=f"<html><body><p>{response_content}</p></body></html>",
+                content=f"<html><body><p>{outputs}</p></body></html>",
                 status_code=200,
             )
         except Exception as e:
-            print("Error during API call:", e)
+            print("Error during Agent processing:", e)
           
             chat_completion = await client.chat.completions.create(
 
@@ -112,7 +106,7 @@ async def generate_responses(
                 model=GROQ_MODEL_NAME,
             )
             response_content = chat_completion.choices[0].message.content
-            print("Chat completion:", response_content)
+
             return HTMLResponse(
                 content=f"<html><body><p>{response_content}</p></body></html>",
                 status_code=200,
@@ -120,7 +114,7 @@ async def generate_responses(
     except Exception as e:
         print("Error during API call:", e)
         return HTMLResponse(
-            content="<html><body><p>Error processing your message.</p></body></html>",
+            content=f"<html><body><p>Error processing your message. {e}</p></body></html>",
             status_code=500,
         )
 
