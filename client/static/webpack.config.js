@@ -44,13 +44,13 @@ module.exports = {
     ]
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: './public/index.html'
-    }),
     new CopyPlugin({
       patterns: [
-        { from: "public", to: "dist" }
+        { from: "public", to: "./" }
       ],
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/index.html'
     }),
     new webpack.ProvidePlugin({
       process: 'process/browser',

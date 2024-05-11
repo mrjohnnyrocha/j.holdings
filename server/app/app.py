@@ -1,27 +1,23 @@
+from pydantic import BaseModel
 from fastapi import FastAPI, HTTPException, Body
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse, HTMLResponse
-from typing import Dict
-import asyncio
+from groq import AsyncGroq
 
-from groq import AsyncGroq  
+from agent import SentimentAnalysisAgent
 from configs import GROQ_API_KEY, GROQ_MODEL_NAME
 from news import getNews
 from prompts import SYSTEM_PROMPT, KNOWLEDGE_PROMPT
 
+client = AsyncGroq(api_key=GROQ_API_KEY)
 app = FastAPI()
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*", "http://localhost:3017", "http://localhost:7860"],  
+    allow_origins=["*", "http://localhost:3017", "http://localhost:7860"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
-# Initialize the Groq API client
-client = AsyncGroq(api_key=GROQ_API_KEY)
 
 
 @app.get("/")
@@ -29,7 +25,7 @@ async def read_root():
     return {"message": "Welcome to the AI News Search API"}
 
 
-@app.get("/api/groq-response")
+@app.get("/api/chat")
 async def fetch_news(query: str = "hi"):
     """
     Endpoint to fetch news and generate a summary based on a user query.
@@ -52,23 +48,48 @@ async def fetch_news(query: str = "hi"):
     return StreamingResponse(generate_responses(messages), media_type="text/plain")
 
 
-@app.post("/api/groq-response")
-async def generate_responses(message: str = Body(..., media_type="text/plain"), history: str = ""):
+class ChatResponse(BaseModel):
+    message: str
+    sentiment_summary: str
+    sentiment_score: float
+
+@app.post("/api/chat", response_model=ChatResponse)
+async def generate_responses(
+    message: str = Body(..., media_type="text/plain"), history: str = ""
+):
     """
     Generate responses from the LLM in a streaming fashion using the Groq API and return them as HTML.
     """
     print("Received message:", message)
     try:
+        agent = SentimentAnalysisAgent()
+        sentiment_summary, sentiment_score = agent.handle(message)
+
+        # #     # Update the graph with the new message
+        # #     node_id = update_conversation_graph(message.user_id, message.message)
+
         chat_completion = await client.chat.completions.create(
-            messages=[{"role": "user", "content": message + KNOWLEDGE_PROMPT + history}],
-            model=GROQ_MODEL_NAME
+
+            messages=[
+                {
+                    "role": "user",
+                    "content": message + sentiment_summary + KNOWLEDGE_PROMPT + history + str(sentiment_score),
+                }
+            ],
+            model=GROQ_MODEL_NAME,
         )
         response_content = chat_completion.choices[0].message.content
         print("Chat completion:", response_content)
-        return HTMLResponse(content=f"<html><body><p>{response_content}</p></body></html>", status_code=200)
+        return HTMLResponse(
+            content=f"<html><body><p>{response_content}</p></body></html>",
+            status_code=200,
+        )
     except Exception as e:
         print("Error during API call:", e)
-        return HTMLResponse(content="<html><body><p>Error processing your request.</p></body></html>", status_code=500)
+        return HTMLResponse(
+            content="<html><body><p>Error processing your message.</p></body></html>",
+            status_code=500,
+        )
 
 
 if __name__ == "__main__":
