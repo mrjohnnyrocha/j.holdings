@@ -1,5 +1,5 @@
 {
-  "name": "j",
+  "name": "app",
   "homepage": "/",
   "version": "1.0.0",
   "description": "",
@@ -19,6 +19,7 @@
   },
   "proxy": "http://localhost:8000",
   "scripts": {
+    "clean": "rm -rf node_modules dist package-lock.json",
     "build": "webpack --mode production",
     "start": "webpack-dev-server --mode development --open",
     "test": "react-scripts test",

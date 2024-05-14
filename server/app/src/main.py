@@ -5,18 +5,19 @@ from fastapi.responses import StreamingResponse, HTMLResponse
 from langchain_core.messages import HumanMessage
 from groq import AsyncGroq
 from pprint import pprint
+import requests
 import logging
+import os
+from dotenv import load_dotenv
 
+env = load_dotenv()
 logger = logging.getLogger(__name__)
 
-from agent import SentimentAnalysisAgent
-from configs import GROQ_API_KEY, GROQ_MODEL_NAME
-from news import getNews
 from prompts import SYSTEM_PROMPT, KNOWLEDGE_PROMPT
 from graph import Graph
 
 
-client = AsyncGroq(api_key=GROQ_API_KEY)
+client = AsyncGroq(api_key=os.getenv("GROQ_API_KEY"))
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
@@ -29,7 +30,7 @@ app.add_middleware(
 
 @app.get("/")
 async def read_root():
-    return {"message": "Welcome to the AI News Search API"}
+    return {"message": "Welcome to the j API"}
 
 
 @app.get("/api/chat")
@@ -38,7 +39,7 @@ async def fetch_news(query: str = "hi"):
     Endpoint to fetch news and generate a summary based on a user query.
     Utilizes a stream response to handle potentially long-running AI generation tasks.
     """
-    news_items = await getNews(query)
+    news_items = "results"
     if not news_items or "results" not in news_items:
         raise HTTPException(
             status_code=404, detail="No news items found for the given query"
@@ -55,25 +56,30 @@ async def fetch_news(query: str = "hi"):
     return StreamingResponse(generate_responses(messages), media_type="text/plain")
 
 
+class ChatRequest(BaseModel):
+    message: str
+
+
 class ChatResponse(BaseModel):
     message: str
     sentiment_summary: str
     sentiment_score: float
 
-@app.post("/api/chat", response_model=ChatResponse)
+
+@app.post("/api/chat", response_model=ChatResponse, response_class=HTMLResponse)
 async def generate_responses(
-    request
+    request: ChatRequest,
 ):
     """
     Generate responses from the LLM in a streaming fashion using the Groq API and return them as HTML.
     """
 
     try:
-        agent = SentimentAnalysisAgent()
+        #agent = SentimentAnalysisAgent()
 
-
-        message = request
-        sentiment_summary, sentiment_score = agent.handle(message)
+        message = request.message
+        print("Message:", message)
+        #sentiment_summary, sentiment_score = agent.handle(message)
 
         # Run
         inputs = {
@@ -89,21 +95,22 @@ async def generate_responses(
 
         try:
             return HTMLResponse(
-                content=f"<html><body><p>{outputs}</p></body></html>",
+                content=f"<html><body><p>{outputs['keys']['generation']}</p></body></html>",
                 status_code=200,
             )
         except Exception as e:
             print("Error during Agent processing:", e)
-          
-            chat_completion = await client.chat.completions.create(
 
+            chat_completion = await client.chat.completions.create(
                 messages=[
                     {
                         "role": "user",
-                        "content": message + sentiment_summary + KNOWLEDGE_PROMPT #+ context_analysis + str(sentiment_score),
+                        "content": message
+                        #+ sentiment_summary
+                        + KNOWLEDGE_PROMPT,  # + context_analysis + str(sentiment_score),
                     }
                 ],
-                model=GROQ_MODEL_NAME,
+                model=os.getenv("GROQ_MODEL_NAME"),
             )
             response_content = chat_completion.choices[0].message.content
 

@@ -57,7 +57,7 @@ def retrieve(state):
     print("---RETRIEVE---")
     state_dict = state["keys"]
     question = state_dict["question"]
-    documents = retriever.get_relevant_documents(question)
+    documents = retriever.invoke(question)
     
     return {"keys": {"documents": documents, "question": question}}
 def generator(state):
@@ -70,9 +70,11 @@ def generator(state):
         that contains LLM generation
     """
     print("---generator---")
+
     state_dict = state["keys"]
     question = state_dict["question"]
     documents = state_dict["documents"]
+  
     # Prompt
     prompt = hub.pull("rlm/rag-prompt")
     # LLM Setup
@@ -84,6 +86,7 @@ def generator(state):
     rag_chain = prompt | llm | StrOutputParser()
     # Run
     generation = rag_chain.invoke({"context": documents, "question": question})
+
     return {
             "keys": {"documents": documents, "question": question, "generation": generation}
     }

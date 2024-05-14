@@ -30,7 +30,7 @@ def transformer(state):
         \n ------- \n
         {question} 
         \n ------- \n
-        Provide an improved question without any premable, only respond 
+        Provide an improved question without any preamble, only respond 
         with the updated question: """,
         input_variables=["question"],
     )
