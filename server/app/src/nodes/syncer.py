@@ -1,5 +1,6 @@
 from langchain.schema import Document
-from langchain_community.tools.tavily_search import TavilySearchResults
+from langchain_community.retrievers import TavilySearchAPIRetriever
+
 
 def syncer(state):
     """
@@ -16,15 +17,17 @@ def syncer(state):
     state_dict = state["keys"]
     question = state_dict["question"]
     documents = state_dict["documents"]
-
+    print("dfsagasd") 
     try:
-        tool = TavilySearchResults()
-        docs = tool.invoke({"query": question})
+        print("Hionkl")
+        tool = TavilySearchAPIRetriever(k=3)
+        print("tomahawk", question)
+        docs = tool.invoke(question)
+        print(docs)
         web_results = "\n".join([d["content"] for d in docs])
         web_results = Document(page_content=web_results)
         documents.append(web_results)
     except Exception as error:
         print(error)
 
-    return {"keys": {"documents": documents, 
-    "question": question}}
+    return {"keys": {"documents": documents, "question": question}}

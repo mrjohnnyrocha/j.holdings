@@ -1,0 +1,26 @@
+# Ignore .env file containing environment variables
+.env
+
+# Ignore node modules
+node_modules
+
+# Ignore logs
+*.log
+
+# Ignore the npm debug log
+npm-debug.log*
+
+# Ignore .DS_Store (Mac)
+.DS_Store
+
+# Ignore IDE specific files
+.idea
+.vscode
+
+# Ignore build / dist files
+dist
+build
+
+# Ignore test and coverage reports
+coverage
+*.test.js

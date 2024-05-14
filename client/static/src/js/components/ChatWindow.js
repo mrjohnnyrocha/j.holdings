@@ -22,14 +22,14 @@ function ChatWindow() {
 
   const getResponse = async (input) => {
     setIsLoading(true);
-    input = input.toLowerCase().trim();
+    input = { 'message': input.toLowerCase().trim() };
     console.log('env secret:', process.env.REACT_APP_API_URL)
     try {
       const url = `${process.env.REACT_APP_API_URL}/api/chat`;
       const response = await fetch(url, {
         method: 'POST',
-        headers: { 'Content-Type': 'text/plain' },
-        body: input
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(input)
       });
       if (!response.ok) {
         throw new Error('Failed to fetch the response from the server');
@@ -97,12 +97,12 @@ function ChatWindow() {
     <div>
       <div id="chat-container">
         <div className="logo-container">
-            <img src={logo} alt="j Logo" className="chat-logo" />
+          <img src={logo} alt="j Logo" className="chat-logo" />
         </div>
         <Message messages={messages} />
         {isLoading && <div id="lottie" ref={lottieContainerRef}></div>}
         <div style={{ float: "left", clear: "both" }} ref={messagesEndRef}></div>
-         <div id="input-area">
+        <div id="input-area">
           <input
             type="text"
             id="user-input"
@@ -113,7 +113,7 @@ function ChatWindow() {
           />
           <button onClick={sendMessage} className="send-button">
             Ask < logo />
-          </button> 
+          </button>
         </div>
       </div>
     </div>

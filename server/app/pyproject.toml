@@ -1,0 +1,178 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "j"
+dynamic = ["version"]
+description = ""
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+keywords = []
+authors = [{ name = "Joao Rocha", email = "mrjohnnrocha@outlook.com" }]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = [
+  "pytest",
+  "uvicorn",
+  "fastapi",
+  "pydantic",
+  "langchain_core",
+  "langchain",
+  "python-dotenv",
+  "backoff",
+  "transformers",
+  "groq",
+  "python-multipart",
+  "bitsandbytes",
+  "langchain-nomic",
+  "langchain_community",
+  "tiktoken",
+  "langchainhub",
+  "chromadb",
+  "langchain",
+  "langgraph",
+  "tavily-python",
+  "gpt4all",
+  "fastembed",
+  "langchain-groq",
+  "bs4"
+]
+
+[project.urls]
+Documentation = "https://github.com/mrjohnnyrocha/j.holdings/server/app#readme"
+Issues = "https://github.com/mrjohnnyrocha/j.holdings/server/app/issues"
+Source = "https://github.com/mrjohnnyrocha/j.holdings/server/app"
+
+[tool.hatch.version]
+path = "src/app/__about__.py"
+
+[tool.hatch.envs.test]
+dependencies = [
+  "pytest",
+  "uvicorn",
+  "fastapi",
+  "pydantic",
+  "langchain_core",
+  "langchain",
+  "python-dotenv",
+  "backoff",
+  "transformers",
+  "groq",
+  "python-multipart",
+  "bitsandbytes",
+  "langchain-nomic",
+  "langchain_community",
+  "tiktoken",
+  "langchainhub",
+  "chromadb",
+  "langchain",
+  "langgraph",
+  "tavily-python",
+  "gpt4all",
+  "fastembed",
+  "langchain-groq",
+  "bs4"
+]
+[tool.hatch.envs.test.scripts]
+build = ""
+serve = "uvicorn app:app --host 0.0.0.0 --port 8000"
+
+[tool.hatch.envs.dev]
+dependencies = [
+  "pytest",
+  "uvicorn",
+  "fastapi",
+  "pydantic",
+  "langchain_core",
+  "langchain",
+  "python-dotenv",
+  "backoff",
+  "transformers",
+  "groq",
+  "python-multipart",
+  "bitsandbytes",
+  "langchain-nomic",
+  "langchain_community",
+  "tiktoken",
+  "langchainhub",
+  "chromadb",
+  "langchain",
+  "langgraph",
+  "tavily-python",
+  "gpt4all",
+  "fastembed",
+  "langchain-groq",
+  "bs4"
+]
+[tool.hatch.envs.dev.scripts]
+build = ""
+serve = "uvicorn app:app --host 0.0.0.0 --port 8000"
+
+[tool.hatch.envs.prod]
+dependencies = [
+  "pytest",
+  "uvicorn",
+  "fastapi",
+  "pydantic",
+  "langchain_core",
+  "langchain",
+  "python-dotenv",
+  "backoff",
+  "transformers",
+  "groq",
+  "python-multipart",
+  "bitsandbytes",
+  "langchain-nomic",
+  "langchain_community",
+  "tiktoken",
+  "langchainhub",
+  "chromadb",
+  "langchain",
+  "langgraph",
+  "tavily-python",
+  "gpt4all",
+  "fastembed",
+  "langchain-groq",
+  "bs4"
+]
+[tool.hatch.envs.prod.scripts]
+build = ""
+serve = "uvicorn app:app --host 0.0.0.0 --port 8000"
+
+[tool.hatch.envs.types]
+extra-dependencies = ["mypy>=1.0.0"]
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive {args:src/app tests}"
+
+[tool.coverage.run]
+source_pkgs = ["app", "tests"]
+branch = true
+parallel = true
+omit = ["src/app/__about__.py"]
+
+[tool.coverage.paths]
+test = ["src/app", "*/app/src/app"]
+tests = ["tests", "*/app/tests"]
+
+[tool.coverage.report]
+exclude_lines = ["no cov", "if __name__ == .__main__.:", "if TYPE_CHECKING:"]
+
+[tool.hatch.build.targets.sdist]
+exclude = [
+  "/.github",
+  "/docs",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/app"]

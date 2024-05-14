@@ -17,12 +17,19 @@ function App() {
   const handleTabChange = (tabType) => {
     setCurrentTab({ id: null, type: tabType });
   }
-
   return (
     <div className="app-container">
       <SideBar onChatChange={handleChatChange} />
-      <ChatWindow chatId={currentChat.id} type={currentChat.type} />
-      <BottomBar onTabChange={handleTabChange} />
+      <ChatArea onTabChange={handleTabChange} chatId={currentChat.id} type={currentChat.type} />
+    </div>
+  );
+}
+
+function ChatArea({ onTabChange, chatId, type }) {
+  return (
+    <div className="chat-area">
+      <ChatWindow chatId={chatId} type={type} />
+      <BottomBar onTabChange={onTabChange} />
     </div>
   );
 }
