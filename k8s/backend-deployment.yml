@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: jholdings-backend:latest
+        ports:
+        - containerPort: 8000
+        env:
+        - name: GROQ_API_KEY
+          value: ${GROQ_API_KEY:-default_groq_api_key}
+        - name: GROQ_MODEL_NAME
+          value: ${GROQ_MODEL_NAME:-default_groq_model_name}
+        - name: TAVILY_API_KEY
+          value: ${TAVILY_API_KEY:-default_tavily_api_key}
+        - name: LOCAL_LLM
+          value: ${LOCAL_LLM:-default_local_llm}
+        - name: TOKENIZERS_PARALLELISM
+          value: ${TOKENIZERS_PARALLELISM:-false}

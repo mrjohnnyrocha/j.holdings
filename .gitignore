@@ -202,3 +202,7 @@ tsbuildinfo
 
 # Optional REPL history
 .node_repl_history
+
+# SSL certificates
+*.crt
+*.key

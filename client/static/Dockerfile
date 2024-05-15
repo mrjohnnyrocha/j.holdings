@@ -1,4 +1,4 @@
-# Located in ./frontend/Dockerfile
+# ./client/static/Dockerfile
 FROM node:16-alpine
 
 WORKDIR /static
