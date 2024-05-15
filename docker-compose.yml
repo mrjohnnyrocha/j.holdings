@@ -1,22 +1,32 @@
 services:
   backend:
     build:
-      context: ./server/app  # Adjust this path to where your backend Dockerfile is located
+      context: ./server/app  
       dockerfile: Dockerfile
     ports:
       - "8000:8000"
     environment:
-      GROQ_API_KEY: ${GROQ_API_KEY}
-      GROQ_MODEL_NAME: ${GROQ_MODEL_NAME}
-      TAVILY_API_KEY: ${TAVILY_API_KEY}
-      LOCAL_LLM: ${LOCAL_LLM}
-      TOKENIZERS_PARALLELISM: ${TOKENIZERS_PARALLELISM}
+      GROQ_API_KEY: ${GROQ_API_KEY:-default_groq_api_key}
+      GROQ_MODEL_NAME: ${GROQ_MODEL_NAME:-default_groq_model_name}
+      TAVILY_API_KEY: ${TAVILY_API_KEY:-default_tavily_api_key}
+      LOCAL_LLM: ${LOCAL_LLM:-default_local_llm}
+      TOKENIZERS_PARALLELISM: ${TOKENIZERS_PARALLELISM:-false}
     env_file:
       - .env
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: "512M"
 
   frontend:
     build:
-      context: ./client/static  # Adjust this path to where your frontend Dockerfile is located
+      context: ./client/static 
       dockerfile: Dockerfile
     ports:
       - "9000:9000"
@@ -24,3 +34,26 @@ services:
       REACT_APP_API_URL: http://backend:8000
     env_file:
       - .env
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: "512M"
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+      - "8443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/localhost.crt:/etc/nginx/ssl/nginx.crt
+      - ./nginx/localhost.key:/etc/nginx/ssl/nginx.key
+    depends_on:
+      - backend
+      - frontend
