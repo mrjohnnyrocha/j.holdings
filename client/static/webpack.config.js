@@ -73,7 +73,7 @@ module.exports = {
     static: {
       directory: path.join(__dirname, 'dist'),
     },
-    host: '0.0.0.0',
+    host: 'j.holdings',
     compress: true,
     port: 9000,
     open: true,
