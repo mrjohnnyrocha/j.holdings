@@ -16,4 +16,4 @@ spec:
       - name: frontend
         image: jholdings-frontend:latest
         ports:
-        - containerPort: 9000
+        - containerPort: 3000
