@@ -10,9 +10,11 @@ http {
         server backend:8000;
     }
 
-    upstream frontend {
-        server frontend:3000;
+    upstream client {
+        server client:3000;
     }
+
+    up
 
     server {
         listen 80;
@@ -20,7 +22,7 @@ http {
         server_name ${SERVER_NAME};
 
         location / {
-            proxy_pass http://frontend;
+            proxy_pass http://client;
             proxy_set_header Host $host;
             proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -46,7 +48,7 @@ http {
         server_name ${SERVER_NAME};
 
         location / {
-            proxy_pass http://frontend;
+            proxy_pass http://client;
             proxy_set_header Host $host;
             proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
