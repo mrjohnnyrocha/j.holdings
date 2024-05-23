@@ -145,7 +145,7 @@ dmypy.json
 */build
 */dist
 nginx/
-*/prompts.py
+server/app/src/scripts.py
 
 ##frontend
 # Dependencies
