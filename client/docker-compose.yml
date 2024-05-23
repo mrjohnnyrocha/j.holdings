@@ -1,0 +1,79 @@
+services:
+  backend:
+    build:
+      context: ./server/app  
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      GROQ_API_KEY: ${GROQ_API_KEY:-default_groq_api_key}
+      GROQ_MODEL_NAME: ${GROQ_MODEL_NAME:-default_groq_model_name}
+      TAVILY_API_KEY: ${TAVILY_API_KEY:-default_tavily_api_key}
+      LOCAL_LLM: ${LOCAL_LLM:-default_local_llm}
+      TOKENIZERS_PARALLELISM: ${TOKENIZERS_PARALLELISM:-false}
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: "512M"
+
+  frontend:
+    build:
+      context: ./client/static 
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      REACT_APP_API_URL: http://backend:8000
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9001"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: "512M"
+
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    ports:
+      - "8080:80"
+      - "8443:443"
+    environment:
+      - SERVER_NAME=${SERVER_NAME}
+    depends_on:
+      - backend
+      - frontend
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./.prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./.prometheus/alert.rules.yml:/etc/prometheus/alert.rules.yml
+    ports:
+      - "9090:9090"
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+
+  alertmanager:
+    image: prom/alertmanager:latest
+    ports:
+      - "9093:9093"
+    command:
+      - '--config.file=/etc/alertmanager/config.yml'
+    volumes:
+      - ./.prometheus/alertmanager/config.yml:/etc/alertmanager/config.yml
