@@ -44,6 +44,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Set environment variables from GitHub Secrets
+        run: |
+          echo "GROQ_API_KEY=${{ secrets.GROQ_API_KEY }}" >> $GITHUB_ENV
+          echo "LOCAL_LLM=${{ secrets.LOCAL_LLM }}" >> $GITHUB_ENV
+          echo "REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }}" >> $GITHUB_ENV
+
       - name: SSH into server and deploy
         uses: appleboy/ssh-action@v0.1.2
         with:
