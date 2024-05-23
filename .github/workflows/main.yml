@@ -5,6 +5,8 @@ on:
     branches:
       - main
       - production
+      - stable
+      - dev
 
 jobs:
   build:
@@ -36,6 +38,11 @@ jobs:
           echo GROQ_API_KEY=${{ secrets.GROQ_API_KEY }} >> .env
           echo GROQ_MODEL_NAME=${{ secrets.REACT_APP_API_URL }} >> .env
           echo LOCAL_LLM=${{ secrets.LOCAL_LLM }} >> .env
+          echo SSH_KEY=${{ secrets.SSH_KEY }} >> .env
+          echo DEPLOY_HOST =${{ secrets.DEPLOY_HOST }} >> .env
+          echo DEPLOY_USER =${{ secrets.DEPLOY_USER }} >> .env
+          echo DOCKER_PASSWORD =${{ secrets.DOCKER_PASSWORD }} >> .env
+          echo DOCKER_USERNAME =${{ secrets.DOCKER_USERNAME }} >> .env
 
 
       - name: Build and push Docker images
