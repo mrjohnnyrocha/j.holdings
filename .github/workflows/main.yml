@@ -31,6 +31,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-buildx-
 
+      - name: Create .env file
+        run: |
+          echo GROQ_API_KEY=${{ secrets.GROQ_API_KEY }} >> .env
+          echo GROQ_MODEL_NAME=${{ secrets.REACT_APP_API_URL }} >> .env
+          echo LOCAL_LLM=${{ secrets.LOCAL_LLM }} >> .env
+
+
       - name: Build and push Docker images
         run: |
           docker-compose -f docker-compose.yml build
