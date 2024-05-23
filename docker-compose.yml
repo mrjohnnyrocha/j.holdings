@@ -75,4 +75,4 @@ services:
     command:
       - '--config.file=/etc/alertmanager/config.yml'
     volumes:
-      - ./.prometheus/alertmanager/config.yml:/etc/alertmanager/config.yml
+      - ./client/.prometheus/alertmanager/config.yml:/etc/alertmanager/config.yml
