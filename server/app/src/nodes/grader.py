@@ -35,8 +35,8 @@ def grade_documents(state):
     state_dict = state["keys"]
     question = state_dict["question"]
     documents = state_dict["documents"]
-
-    llm = ChatGroq(temperature=0, model_name=os.getenv("LOCAL_LLM"))
+  
+    llm = ChatGroq(temperature=0, model=os.getenv("LOCAL_LLM"))
 
     # Data model
     class Grade(BaseModel):

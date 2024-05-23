@@ -2,7 +2,7 @@
 all: build HATCH=false run
 
 # Default value for HATCH variable
-HATCH ?= true
+HATCH ?= false
 
 # Build Docker image based on the HATCH value
 .PHONY: build

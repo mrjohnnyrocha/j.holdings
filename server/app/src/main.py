@@ -13,7 +13,7 @@ from dotenv import load_dotenv
 env = load_dotenv()
 logger = logging.getLogger(__name__)
 
-from prompts import SYSTEM_PROMPT, KNOWLEDGE_PROMPT
+from scripts import CONTEXT, SAFETY_GATE
 from graph import Graph
 
 
@@ -21,7 +21,7 @@ client = AsyncGroq(api_key=os.getenv("GROQ_API_KEY"))
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*", "http://localhost:3017", "http://localhost:7860"],
+    allow_origins=["*", "http://localhost:3000", "http://localhost:3001" "http://localhost:9000"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -46,7 +46,7 @@ async def fetch_news(query: str = "hi"):
         )
 
     messages = [
-        {"role": "system", "content": SYSTEM_PROMPT},
+        {"role": "system", "content": SYSTEM},
         {
             "role": "user",
             "content": f"Query: {query}\nNews Items: {news_items['results']}",
@@ -81,7 +81,6 @@ async def generate_responses(
         print("Message:", message)
         #sentiment_summary, sentiment_score = agent.handle(message)
 
-        # Run
         inputs = {
             "keys": {
                 "question": message,
@@ -89,35 +88,30 @@ async def generate_responses(
         }
 
         graph = Graph()
+
         app = graph.build()
 
         outputs = app.invoke(inputs)
+        output = outputs['keys']['generation']
 
-        try:
-            return HTMLResponse(
-                content=f"<html><body><p>{outputs['keys']['generation']}</p></body></html>",
-                status_code=200,
-            )
-        except Exception as e:
-            print("Error during Agent processing:", e)
+        content =  f"Regenerate in a professional and concise manner the answer {output} to the question {message}. Just output the generated answer and nothing else." 
+        
+        chat_completion = await client.chat.completions.create(
+            messages=[
+                {
+                    "role": "user",
+                    "content": content
+                }
+            ],
+            model=os.getenv("LOCAL_LLM"),
+        )
+        response_content = chat_completion.choices[0].message.content
 
-            chat_completion = await client.chat.completions.create(
-                messages=[
-                    {
-                        "role": "user",
-                        "content": message
-                        #+ sentiment_summary
-                        + KNOWLEDGE_PROMPT,  # + context_analysis + str(sentiment_score),
-                    }
-                ],
-                model=os.getenv("GROQ_MODEL_NAME"),
-            )
-            response_content = chat_completion.choices[0].message.content
+        return HTMLResponse(
+            content=f"<html><body><p>{response_content}</p></body></html>",
+            status_code=200,
+        )
 
-            return HTMLResponse(
-                content=f"<html><body><p>{response_content}</p></body></html>",
-                status_code=200,
-            )
     except Exception as e:
         print("Error during API call:", e)
         return HTMLResponse(

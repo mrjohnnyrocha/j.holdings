@@ -35,7 +35,7 @@ def decide_to_generate(state):
     state_dict = state["keys"]
     question = state_dict["question"]
     filtered_documents = state_dict["documents"]
-    search = state_dict["run_web_search"]
+    search = state_dict.get("run_web_search")
 
     if search == "Yes":
         # All documents have been filtered check_relevance
@@ -61,16 +61,17 @@ class Graph:
 
         # Define the nodes
         workflow.add_node("retrieve", retrieve)  # retrieve
-        workflow.add_node("grader", grade_documents)  # grade documents
+       # workflow.add_node("grader", grade_documents)  # grade documents
         workflow.add_node("generator", generator)  # generator
         workflow.add_node("transformer", transformer)  # transformer
         workflow.add_node("syncer", syncer)  # web search
 
         # Build graph
         workflow.set_entry_point("retrieve")
-        workflow.add_edge("retrieve", "grader")
+    #    workflow.add_edge("retrieve", "grader")
         workflow.add_conditional_edges(
-            "grader",
+          #  "grader",
+           "retrieve",
             decide_to_generate,
             {
                 "transformer": "transformer",

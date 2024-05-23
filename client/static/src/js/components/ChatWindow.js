@@ -23,9 +23,9 @@ function ChatWindow() {
   const getResponse = async (input) => {
     setIsLoading(true);
     input = { 'message': input.toLowerCase().trim() };
-    console.log('env secret:', process.env.REACT_APP_API_URL)
     try {
       const url = `${process.env.REACT_APP_API_URL}/api/chat`;
+      console.log(url);
       const response = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

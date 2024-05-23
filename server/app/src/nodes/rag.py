@@ -1,18 +1,10 @@
+import chromadb
 from langchain import hub
 from langchain_core.output_parsers import StrOutputParser
-from langchain_community.document_loaders import WebBaseLoader
-from langchain_community.vectorstores import Chroma
-from langchain_community.embeddings import GPT4AllEmbeddings
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_groq import ChatGroq
-from langchain_core.output_parsers import StrOutputParser
-from langchain_community.document_loaders import WebBaseLoader
-from langchain_community.vectorstores import Chroma
-from langchain_community.embeddings import GPT4AllEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_groq import ChatGroq
 from typing import Dict, TypedDict
-
+from scripts import KNOWLEDGE
 import os
 
 
@@ -37,28 +29,14 @@ def retrieve(state):
     """
     # Split documents
 
-    url = "https://lilianweng.github.io/posts/2023-06-23-agent/"
-    loader = WebBaseLoader(url)
-    docs = loader.load()
-    # Split
-    text_splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(
-            chunk_size=500, chunk_overlap=100
-    )
-    all_splits = text_splitter.split_documents(docs)
-    # Embed and index
-    embeddings = GPT4AllEmbeddings()
-    # Index
-    vectorstore = Chroma.from_documents(
-            documents=all_splits,
-        collection_name="rag-chroma",
-        embedding=embeddings,
-    )
-    retriever = vectorstore.as_retriever()
+   
+    # vectorstore = chromadb.PersistentClient(path="chromadb-client/")
+    # retriever = vectorstore.as_retriever()
     print("---RETRIEVE---")
     state_dict = state["keys"]
     question = state_dict["question"]
-    documents = retriever.invoke(question)
-    
+    # documents = retriever.invoke(question)
+    documents = KNOWLEDGE
     return {"keys": {"documents": documents, "question": question}}
 def generator(state):
     """
@@ -77,12 +55,13 @@ def generator(state):
   
     # Prompt
     prompt = hub.pull("rlm/rag-prompt")
+
     # LLM Setup
-    llm = ChatGroq(temperature=0, model_name=os.getenv("LOCAL_LLM"))
+    llm = ChatGroq(temperature=0, model=os.getenv("LOCAL_LLM"))
     # Post-processing
-    def format_docs(docs):
-        return "\n\n".join(doc.page_content for doc in docs)
-    # Chain
+    # def format_docs(docs):
+    #     return "\n\n".join(doc.page_content for doc in docs)
+    # # Chain
     rag_chain = prompt | llm | StrOutputParser()
     # Run
     generation = rag_chain.invoke({"context": documents, "question": question})

@@ -1,5 +1,17 @@
-##backend
+## backend
 j/
+
+## poetry artifacts
+poetry.lock
+
+## chromadb
+chromadb-client/
+
+## npm artifacts
+../package-lock.json
+../package.json
+node_modules/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
