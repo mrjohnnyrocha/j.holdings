@@ -5,10 +5,13 @@ const CopyPlugin = require('copy-webpack-plugin');
 const DotEnv = require('dotenv-webpack');
 
 module.exports = {
-  entry: './src/js/index.js', // Entry point of your application
+  entry: './src/js/index.js',
   output: {
-    path: path.resolve(__dirname, 'dist'), // Output directory
-    filename: 'bundle.js' // Output bundle file
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js'
+  },
+  optimization: {
+    minimize: false
   },
   module: {
     rules: [
@@ -42,11 +45,11 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './public/index.html' // HTML template to use
+      template: './public/index.html'
     }),
     new CopyPlugin({
       patterns: [
-        { from: "public", to: "dist" } // Copying from public to dist
+        { from: "public", to: "dist" }
       ],
     }),
     new webpack.ProvidePlugin({
