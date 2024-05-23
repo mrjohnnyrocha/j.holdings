@@ -144,7 +144,7 @@ dmypy.json
 */__pycache__
 */build
 */dist
-nginx/
+nginx/nginx.conf.local
 server/app/src/scripts.py
 
 ##frontend
