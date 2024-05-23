@@ -4,7 +4,7 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_groq import ChatGroq
 from typing import Dict, TypedDict
-from scripts import KNOWLEDGE
+from scripts import CONTEXT
 import os
 
 
@@ -36,7 +36,7 @@ def retrieve(state):
     state_dict = state["keys"]
     question = state_dict["question"]
     # documents = retriever.invoke(question)
-    documents = KNOWLEDGE
+    documents = CONTEXT
     return {"keys": {"documents": documents, "question": question}}
 def generator(state):
     """
