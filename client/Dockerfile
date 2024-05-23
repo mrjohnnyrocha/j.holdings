@@ -1,7 +1,7 @@
-# ./client/static/Dockerfile
+# ./client/Dockerfile
 FROM node:22-alpine
 
-WORKDIR /static
+WORKDIR /client
 
 COPY package*.json ./
 
