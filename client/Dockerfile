@@ -9,7 +9,7 @@ RUN npm install -g serve
 
 COPY . ./
 
-EXPOSE 9001
+EXPOSE 3000
 
 CMD ["serve", "-s", "dist"]
 
