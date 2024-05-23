@@ -17,13 +17,13 @@ def syncer(state):
     state_dict = state["keys"]
     question = state_dict["question"]
     documents = state_dict["documents"]
-    print("dfsagasd") 
+
     try:
-        print("Hionkl")
+ 
         tool = TavilySearchAPIRetriever(k=3)
-        print("tomahawk", question)
+
         docs = tool.invoke(question)
-        print(docs)
+     
         web_results = "\n".join([d["content"] for d in docs])
         web_results = Document(page_content=web_results)
         documents.append(web_results)

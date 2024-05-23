@@ -36,7 +36,7 @@ def transformer(state):
     )
 
     # Grader
-    llm = ChatGroq(temperature=0, model_name=os.getenv("LOCAL_LLM"))
+    llm = ChatGroq(temperature=0, model=os.getenv("LOCAL_LLM"))
     # Prompt
     chain = prompt | llm | StrOutputParser()
     better_question = chain.invoke({"question": question})
