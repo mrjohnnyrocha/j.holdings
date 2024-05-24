@@ -2,10 +2,10 @@ from langgraph.graph import END, StateGraph
 from typing import Any, Dict, TypedDict
 
 
-from .nodes.grader import grade_documents
-from .nodes.syncer import syncer
-from .nodes.transformer import transformer
-from .nodes.rag import retrieve, generator
+from nodes.grader import grade_documents
+from nodes.syncer import syncer
+from nodes.transformer import transformer
+from nodes.rag import retrieve, generator
 
 
 class GraphState(TypedDict):
