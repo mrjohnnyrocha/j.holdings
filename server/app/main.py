@@ -13,8 +13,8 @@ from dotenv import load_dotenv
 env = load_dotenv()
 logger = logging.getLogger(__name__)
 
-from scripts import CONTEXT, SAFETY_GATE
-from graph import Graph
+from .scripts import CONTEXT, SAFETY_GATE
+from .graph import Graph
 
 
 client = AsyncGroq(api_key=os.getenv("GROQ_API_KEY"))
