@@ -21,7 +21,7 @@ http {
 
         location / {
             proxy_pass http://client;
-           
+            try_files $uri $uri/ /index.html;
         }
 
         location /api {
@@ -40,7 +40,7 @@ http {
 
         location / {
             proxy_pass http://client;
-        
+            try_files $uri $uri/ /index.html;
         }
 
         location /api {
