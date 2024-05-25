@@ -1,0 +1,10 @@
+FROM nginx:latest
+
+# Copy the template config file
+COPY nginx.conf.template /etc/nginx/nginx.conf.template
+
+# Copy a startup script
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
+
+CMD ["/start.sh"]
