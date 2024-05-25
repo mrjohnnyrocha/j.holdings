@@ -8,14 +8,17 @@ poetry.lock
 chromadb-client/
 
 ## npm artifacts
-../package-lock.json
-../package.json
+../lient/package-lock.json
 node_modules/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
+
+# nginx
+nginx/ssl 
+
 
 # C extensions
 *.so
@@ -144,8 +147,8 @@ dmypy.json
 */__pycache__
 */build
 */dist
-nginx/
-*/prompts.py
+nginx/nginx.conf.local
+server/app/src/scripts.py
 
 ##frontend
 # Dependencies
