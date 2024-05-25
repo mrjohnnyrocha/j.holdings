@@ -8,6 +8,7 @@ html {
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow-x: hidden;
 }
 
 .app-container {
@@ -17,6 +18,7 @@ html {
     align-items: center;
     justify-content: center;
     background-color: #121212;
+    overflow-x: hidden;
   }
 
    
@@ -35,14 +37,13 @@ html {
     left: 0;
     top: 0;
     bottom: auto;
-    height: 90%;
+    height: 100%;
     width: 50px; 
     padding-top: 80px; 
     transition: width 0.75s ease;
     overflow: hidden;
     box-sizing: border-box;
     overflow-y: auto;
-    overflow-x: auto;
 }
 
 
@@ -52,9 +53,6 @@ html {
     color: white;
 }
 
-.sidebar:hover chat-area{
-    width: 60%;
-}
 
 .sidebar a {
     color: white;
@@ -149,26 +147,33 @@ html {
 .chat-area {
     display: flex;
     flex-direction: column;
-    width: 45vh;
+    width: 45%;
     height: 85vh;
     background-color: #171717;
     border: 2px solid #121212;
     left: 50px;
     position: relative;
+    overflow: hidden;
     overflow-y: auto;
     overflow-x: auto;
-    padding-bottom: 50px; /* Space for BottomBar */
-    align-items: center; /* Centers ChatWindow horizontally */
+    padding-bottom: 50px;
+    align-items: center; 
+    width: calc(100% - 6px); 
+    box-sizing: border-box; 
   }
 
+.sidebar:hover ~ .chat-area {
+    left: 25%;
+}
 
 #chat-container {
     align-self: center;
     position: relative;
     flex-grow: 1; /* Takes up all available space */
-    width: 100%; /* Ensures it fills the chat-area */
+    width: 90%; /* Ensures it fills the chat-area */
     background-color: #2a2a2a; /* Dark theme for chat area */
     overflow-y: auto;
+    overflow-x: auto;
     border: none; /* Removes any border within the chat-area */
     max-width: calc(100% - 10px);
   }
@@ -273,8 +278,8 @@ html {
     display: 'flex';
     justify-content: 'center';
     align-items: 'center';
-    width: '50vw';
-    height: '50vh';
+    width: '15vw';
+    height: '15vh';
 }
 
 #input-area {
