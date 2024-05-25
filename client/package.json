@@ -22,7 +22,8 @@
     "scripts": {
         "clean": "rm -rf node_modules dist package-lock.json",
         "build": "npx webpack --mode",
-        "start": "serve -s dist",
+        "start": "webpack serve --open",
+        "serve": "webpack serve --config webpack.config.js",
         "test": "react-scripts test",
         "eject": "react-scripts eject"
     },

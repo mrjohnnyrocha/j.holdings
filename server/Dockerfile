@@ -4,6 +4,8 @@ FROM python:3.12-slim
 ENV GROQ_API_KEY=${GROQ_API_KEY}
 ENV LOCAL_LLM=${LOCAL_LLM}
 
+WORKDIR /app
+
 # Install Poetry
 RUN pip install --no-cache-dir poetry
 RUN poetry config virtualenvs.create false

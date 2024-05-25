@@ -108,7 +108,7 @@ module.exports = (env, argv) => {
       static: {
         directory: path.join(__dirname, 'dist'),
       },
-      host: 'j.holdings',
+      host: 'localhost',
       compress: true,
       port: 3000,
       open: true,

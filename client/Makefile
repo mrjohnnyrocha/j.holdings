@@ -1,18 +1,10 @@
 .PHONY: all
-all: build run
+all: build serve
 
-# Default value for HATCH variable
-HATCH ?= true
-
-# Build Docker image based on the HATCH value
 .PHONY: build
 build:
-	docker build -t app .
+	@npm run build production
 
-
-# Additional targets for clean or run can be defined here
-
-	
-.PHONY: run
-run:
-	docker run -p 9000:9000 app
+.PHONY: serve
+serve:
+	@serve -s dist
