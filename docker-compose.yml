@@ -47,8 +47,8 @@ services:
       context: ./nginx
       dockerfile: Dockerfile.nginx
     ports:
-      - "8080:80"
-      - "8443:443"
+      - "8080:8080"
+      - "433:8443"
     environment:
       SERVER_NAME: ${SERVER_NAME:-localhost}
     env_file:

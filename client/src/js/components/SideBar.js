@@ -15,9 +15,9 @@ function SideBar({ onChatChange }) {
 
     return (
         <div className="sidebar">
-            <div className="sidebar-logo">
+            <a className="sidebar-logo">
                 <img src={logo} alt="j Logo" />
-            </div>
+            </a>
             <a className={activeTab === 'individual' ? 'active' : ''}
                 onClick={() => handleTabChange('individual')}>
                 <FontAwesomeIcon icon={faUser} /> <span >Individual Chat</span>
