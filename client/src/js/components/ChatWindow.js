@@ -2,10 +2,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../../css/style.css';
 import lottie from 'lottie-web';
-import logo from '../../assets/j_logo_no_glow.png';
-import loadingAnimation from '../../assets/loading.json';
+import logo from '../../../public/static/assets/j_logo.png';
+import loadingAnimation from '../../../public/static/assets/loading.json';
 import Message, { WelcomeMessage } from './Message';
-import InputArea from './InputArea';
 
 function ChatWindow() {
   const [userInput, setUserInput] = useState('');

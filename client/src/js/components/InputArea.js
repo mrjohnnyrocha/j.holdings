@@ -1,7 +1,6 @@
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import '../../css/style.css';
-import logo from '../../assets/j_logo_no_glow.png';
 import Text from './Text';
 
 function InputArea({ sendMessage, Logo }) {

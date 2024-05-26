@@ -1,7 +1,7 @@
 //components/Message.js
-import React, { useState, useEffect, useRef } from 'react';
+
 import '../../css/style.css';
-import logo from '../../assets/j_logo_no_glow.png';
+import logo from '../../../public/static/assets/j_logo.png';
 import Text from './Text';
 import DOMPurify from 'dompurify';
 

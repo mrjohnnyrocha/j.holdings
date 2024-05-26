@@ -92,16 +92,20 @@ async def generate_responses(
         app = graph.build()
 
         outputs = app.invoke(inputs)
-        output = outputs['keys']['generation']
+        output = outputs['keys']['generation'] 
 
-        content =  f"Regenerate in a professional and concise manner the answer {output} to the question {message}. Just output the generated answer and nothing else." 
-        
+        content =  f"Regenerate in a professional and concise manner the answer {output} to the question {message}, given the context {CONTEXT}. Do not add any extra information to the answer. Do not make up information about any entity or individual, particularly João Rocha. Remember that whenever the question asks information about someone, assume it's João Rocha unless the user explicitly asks about someone else - in cases of ambiguity, clarify the user that this is the case. Output only the generated answer and nothing else. GO." 
+        print("Content:", content)
         chat_completion = await client.chat.completions.create(
             messages=[
                 {
                     "role": "user",
-                    "content": content
-                }
+                    "content": content 
+                },
+                {
+                    "role": "assistant",
+                    "content": SAFETY_GATE,
+                },
             ],
             model=os.getenv("LOCAL_LLM"),
         )

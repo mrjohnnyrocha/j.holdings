@@ -3,14 +3,14 @@ import React, { useState } from 'react';
 import '../../css/style.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faUsers, faGlobe } from '@fortawesome/free-solid-svg-icons';
-import logo from '../../assets/j_logo_no_glow.png';
+import logo from '../../../public/static/assets/j_logo.png';
 
 function SideBar({ onChatChange }) {
     const [activeTab, setActiveTab] = useState('individual');
 
-    const handleTabChange = (chatType) => {
-        setActiveTab(chatType);
-        onChatChange('123', chatType); // Dummy ID, replace with actual logic
+    const handleTabChange = (tabType) => {
+        setActiveTab(tabType);
+        onTabChange(tabType);
     };
 
     return (

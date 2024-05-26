@@ -1,35 +1,69 @@
 // src/components/App.js
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import ChatWindow from './ChatWindow';
-import BottomBar from './BottomBar'; // New component for handling chat types
-import SideBar from './SideBar'; // New component for handling chat types
+import BottomBar from './BottomBar'; 
+import SideBar from './SideBar';
 import '../../css/style.css';
+
+import SignInPage from '../pages/Signin';
+import SignUpPage from '../pages/SignUp';
+import AboutPage from '../pages/About';
+
 
 function App() {
   const [currentChat, setCurrentChat] = useState({ id: null, type: 'individual' });
-  const [currentTab, setCurrentTab] = useState({ id: null, type: 'individual' });
+  
 
-  // Function to change current chat context
   const handleChatChange = (chatId, type) => {
     setCurrentChat({ id: chatId, type: type });
   };
 
   const handleTabChange = (tabType) => {
-    setCurrentTab({ id: null, type: tabType });
-  }
+    const navigate = useNavigate();
+    if (tabType === 'signin' || tabType === 'signup' || tabType === 'about') {
+      useHistory().push(`/${tabType}`);
+    } else {
+      setCurrentChat({ id: null, type: tabType });
+    }
+  };
+
   return (
-    <div className="app-container">
-      <SideBar onChatChange={handleChatChange} />
-      <ChatArea onTabChange={handleTabChange} chatId={currentChat.id} type={currentChat.type} />
-    </div>
+    <Router>
+      <div className="app-container">
+          <SideBar onChatChange={handleChatChange} />
+          <Routes>
+            <Route path="/" exact>
+              <ChatArea onTabChange={handleTabChange} chatId={currentChat.id} type={currentChat.type} />
+            </Route>
+            <Route path="/signin" component={SignInPage} />
+            <Route path="/signup" component={SignUpPage} />
+            <Route path="/about" component={AboutPage} />
+          </Routes>
+      </div>
+    </Router>
+   
   );
 }
 
-function ChatArea({ onTabChange, chatId, type }) {
+function ChatArea({ chatId, type }) {
+  const [isOpen, setIsOpen] = useState(true);
+
+  const toggleChatWindow = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <div className="chat-area">
-      <ChatWindow chatId={chatId} type={type} />
-      <BottomBar onTabChange={onTabChange} />
+      <button onClick={toggleChatWindow}>
+        {isOpen ? 'Close Chat' : 'Open Chat'}
+      </button>
+      {isOpen && (
+        <>
+          <ChatWindow chatId={chatId} type={type} />
+          <BottomBar />
+        </>
+      )}
     </div>
   );
 }
