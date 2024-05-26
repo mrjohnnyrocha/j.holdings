@@ -14,7 +14,8 @@ module.exports = (env, argv) => {
     entry: './src/js/index.js',
     output: {
       path: path.resolve(__dirname, 'dist'),
-      filename: isProduction ? 'bundle.[contenthash].js' : 'bundle.js'
+      filename: isProduction ? '[name].[contenthash].js' : '[name].js',
+      publicPath: '/',
     },
     optimization: {
       minimize: isProduction,
@@ -52,7 +53,7 @@ module.exports = (env, argv) => {
               loader: 'file-loader',
               options: {
                 name: '[name].[contenthash].[ext]',
-                outputPath: '/static/assets/'
+                outputPath: 'public/static/assets/'
               }
             }
           ]
@@ -63,11 +64,13 @@ module.exports = (env, argv) => {
       new CleanWebpackPlugin(),
       new CopyPlugin({
         patterns: [
-          { from: "public", to: "./" }
+          { from: "public", to: "./", globOptions: { ignore: ["**/index.html"] } }
         ],
       }),
       new HtmlWebpackPlugin({
-        template: './src/index.html',
+        template: './public/index.html',
+        filename: 'index.html',
+        inject: 'body',
         minify: isProduction ? {
           collapseWhitespace: true,
           removeComments: true,
@@ -112,7 +115,10 @@ module.exports = (env, argv) => {
       compress: true,
       port: 3000,
       open: true,
-      historyApiFallback: true
+      historyApiFallback: true,
+      devMiddleware: {
+        writeToDisk: true,
+      }
     }
   };
 };

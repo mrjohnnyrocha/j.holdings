@@ -3,10 +3,12 @@ import React, { useState } from 'react';
 import '../../css/style.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faUsers, faGlobe } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 import logo from '../../../public/static/assets/j_logo.png';
 
 function SideBar({ onChatChange }) {
     const [activeTab, setActiveTab] = useState('individual');
+    const navigate = useNavigate();
 
     const handleTabChange = (tabType) => {
         setActiveTab(tabType);
