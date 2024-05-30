@@ -1,0 +1,35 @@
+.indexContainer {
+    padding: 20px;
+    background-color: #0a0a0a;
+    color: white;
+    text-align: center;
+  }
+  
+  .logoContainer {
+    margin-bottom: 20px;
+  }
+  
+  .logo {
+    width: 150px;
+  }
+  
+  .button {
+    background-color: #00ff00;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  .button:hover {
+    background-color: #00cc00;
+  }
+  
+  .link {
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  

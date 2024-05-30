@@ -1,0 +1,31 @@
+/* styles/SideBar.module.css */
+.sidebar {
+    background-color: #1a1a1a;
+    color: white;
+    height: 100vh;
+    position: fixed;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+  }
+  
+  .sidebarLogo {
+    margin-bottom: 20px;
+  }
+  
+  .sidebar a {
+    display: block;
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+    text-align: center;
+    width: 100%;
+  }
+  
+  .sidebar a.active {
+    background-color: #00ff00;
+    color: black;
+  }
+  

@@ -8,6 +8,9 @@ services:
     environment:
       GROQ_API_KEY: ${GROQ_API_KEY:-default}
       LOCAL_LLM: ${LOCAL_LLM:-default}
+      MONGODB_URI: ${MONGODB_URI:-default}
+      DATABASE_NAME: ${DATABASE_NAME:-default}
+      SECRET: ${SECRET:-default}
     env_file:
       - .env
     healthcheck:
@@ -67,6 +70,32 @@ services:
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.path=/prometheus'
+
+  mongo:
+    image: mongo
+    build:
+      context: ./server  
+      dockerfile: Dockerfile
+    ports:
+      - "3017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: $MONGO_INITDB_ROOT_USERNAME:-default}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD:-default}
+      SECRET: ${SECRET:-default}
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3017/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: "512M"
+
+
 
   alertmanager:
     image: prom/alertmanager:latest

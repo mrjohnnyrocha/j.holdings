@@ -1,0 +1,10 @@
+.protectedPage {
+    padding-left: 220px;
+    padding-top: 20px;
+    color: white;
+  }
+  
+  .accessDenied {
+    color: red;
+  }
+  

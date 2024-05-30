@@ -1,0 +1,21 @@
+.message {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    max-width: 70%;
+  }
+  
+  .user {
+    background-color: #333333;
+    color: white;
+    align-self: flex-end;
+  }
+  
+  .j {
+    background-color: #121212;
+    color: #38979e;
+    align-self: flex-start;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+  }
+  

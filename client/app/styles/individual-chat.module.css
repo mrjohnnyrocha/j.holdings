@@ -1,0 +1,14 @@
+.individualChatContainer {
+    padding: 20px;
+    background-color: #0a0a0a;
+    color: white;
+  }
+  
+  .chatArea {
+    margin-left: 200px;
+    padding: 20px;
+    background-color: #1a1a1a;
+    height: calc(100vh - 50px); /* Adjust for bottom bar */
+    overflow-y: auto;
+  }
+  

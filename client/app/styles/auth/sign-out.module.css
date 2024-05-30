@@ -1,0 +1,38 @@
+.signOutContainer {
+    padding: 20px;
+    background-color: #0a0a0a;
+    color: white;
+    max-width: 400px;
+    margin: 0 auto;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+  }
+  
+  .logoContainer {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .logo {
+    width: 100px;
+    height: auto;
+  }
+  
+  .message {
+    margin-bottom: 20px;
+  }
+  
+  .button {
+    background-color: #00ff00;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .button:hover {
+    background-color: #00cc00;
+  }
+  

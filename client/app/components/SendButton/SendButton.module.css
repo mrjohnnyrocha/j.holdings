@@ -1,0 +1,16 @@
+.sendButton {
+    padding: 10px 20px;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    cursor: pointer;
+    align-items: baseline;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .sendButton:hover {
+    background-color: #367c39;
+  }
+  

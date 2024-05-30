@@ -1,0 +1,15 @@
+.group-chat-container {
+    padding: 20px;
+    background-color: #0a0a0a;
+    color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+  
+  .group-chat-message {
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #1a1a1a;
+    border-radius: 4px;
+  }
+  
