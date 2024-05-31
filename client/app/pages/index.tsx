@@ -36,6 +36,7 @@ const Home: React.FC = () => {
       <div className={styles.mainContent}>
         <h1>Welcome to YJ4</h1>
         <p>Your fully-fledged solution for seamless communication.</p>
+        <Image src={'/assets/underConstruction.svg'} alt="Under Construction" width={300} height={300} />
         {!session ? (
           <>
             <button className={styles.button} onClick={() => signIn()}>
