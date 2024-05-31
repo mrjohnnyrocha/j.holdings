@@ -3,19 +3,20 @@ import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import SideBar from "@/SideBar/SideBar";
 import BottomBar from "@/BottomBar/BottomBar";
-import ChatArea from "@/ChatArea/ChatArea";
+import ChatWindow from "@/ChatWindow/ChatWindow";
 import styles from "../styles/community-chat.module.css";
+import Header from "@/Header/Header";
 
 const CommunityChat: React.FC = () => {
   const { data: session, status } = useSession();
-  const router = useRouter(); // Move useRouter to the top level of the functional component
+  const router = useRouter();
   const [currentChat, setCurrentChat] = useState<{ id: string | null; type: string }>({ id: null, type: "community" });
 
   useEffect(() => {
     if (!session) {
       router.push("/auth/sign-in");
     }
-  }, [session, router]); // Include router in the dependency array
+  }, [session, router]);
 
   const handleChatChange = (chatId: string, type: string) => {
     setCurrentChat({ id: chatId, type });
@@ -23,8 +24,9 @@ const CommunityChat: React.FC = () => {
 
   return (
     <div className={styles.chatContainer}>
+      <Header />
       <SideBar onChatChange={handleChatChange} />
-      <ChatArea chatId={currentChat.id} type={currentChat.type} />
+      <ChatWindow chatId={currentChat.id} type={currentChat.type} />
       <BottomBar onTabChange={(tab) => handleChatChange(tab, "community")} />
     </div>
   );

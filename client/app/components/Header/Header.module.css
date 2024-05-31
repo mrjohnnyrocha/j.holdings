@@ -1,0 +1,38 @@
+@keyframes fadeInOut {
+    0% {
+      opacity: 1;
+      background-color: black;
+    }
+    50% {
+      opacity: 1;
+      background-color: transparent;
+    }
+    100% {
+      opacity: 0;
+      background-color: transparent;
+    }
+  }
+  
+  .header {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    transition: opacity 1s ease-in-out, background-color 2s ease-in-out;
+  }
+  
+  .logo {
+    width: 100px;
+    height: auto;
+  }
+  
+  .show {
+    opacity: 1;
+    animation: fadeInOut 2s forwards;
+  }
+  
+  .hide {
+    opacity: 0;
+  }
+  

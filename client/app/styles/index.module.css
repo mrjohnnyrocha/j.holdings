@@ -1,35 +1,47 @@
 .indexContainer {
-    padding: 20px;
-    background-color: #0a0a0a;
-    color: white;
-    text-align: center;
-  }
-  
-  .logoContainer {
-    margin-bottom: 20px;
-  }
-  
-  .logo {
-    width: 150px;
-  }
-  
-  .button {
-    background-color: #00ff00;
-    color: black;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    margin-top: 20px;
-  }
-  
-  .button:hover {
-    background-color: #00cc00;
-  }
-  
-  .link {
-    color: blue;
-    text-decoration: underline;
-    cursor: pointer;
-    margin-top: 20px;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #0a0a0a;
+  color: white;
+  text-align: center;
+  overflow: hidden;
+}
+
+.logoContainer {
+  margin-bottom: 20px;
+}
+
+.logo {
+  width: 150px;
+}
+
+.button {
+  background-color: #00ff00;
+  color: black;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.button:hover {
+  background-color: #00cc00;
+}
+
+.link {
+  color: #00ff00;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.mainContent {
+  margin-left: 220px; /* Adjust according to the sidebar width */
+  padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}

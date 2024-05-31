@@ -1,5 +1,5 @@
 import React from 'react';
-
+import styles from './Text.module.css';
 
 interface TextPart {
   style: string;
@@ -7,14 +7,14 @@ interface TextPart {
 }
 
 interface TextProps {
-  content: TextPart[];
+  parts: TextPart[];
 }
 
-const Text: React.FC<TextProps> = ({ content }) => {
+const Text: React.FC<TextProps> = ({ parts }) => {
   return (
     <span>
-      {content.map((part, index) => (
-        <span key={index} className={part.style}>
+      {parts.map((part, index) => (
+        <span key={index} className={styles[part.style]}>
           {part.text}
         </span>
       ))}

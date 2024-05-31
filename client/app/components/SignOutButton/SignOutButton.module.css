@@ -1,9 +1,10 @@
 .signOutButton {
-    background-color: #00ff00;
-    color: black;
+    background-color: #38979e;
+    color:white;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
+    font-family: inherit;
   }
   
   .signOutButton:hover {

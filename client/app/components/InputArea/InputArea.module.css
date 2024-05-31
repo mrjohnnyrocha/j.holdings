@@ -1,28 +1,16 @@
 .inputArea {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    background-color: #1a1a1a;
-  }
-  
-  #userInput {
-    flex-grow: 1;
-    padding: 10px;
-    border: none;
-    background-color: #333;
-    color: white;
-    font-family: 'Courier New', Courier, monospace;
-  }
-  
-  .sendButton {
-    padding: 10px 20px;
-    background-color: #4caf50;
-    border: none;
-    color: white;
-    cursor: pointer;
-  }
-  
-  .sendButton:hover {
-    background-color: #367c39;
-  }
-  
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  width: 95%;
+  height: 7vh;
+  margin: 0 auto;
+}
+
+.userInput {
+  background-color: #333333;
+  border: none;
+  color: white;
+  font-family: 'Courier New', Courier, monospace;
+}
+

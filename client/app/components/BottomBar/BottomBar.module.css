@@ -1,23 +1,44 @@
-.bottomBar {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: #1a1a1a;
-    display: flex;
-    justify-content: space-around;
-    padding: 10px 0;
-  }
-  
-  .navIcon {
-    background: none;
-    border: none;
-    color: #ffffff;
-    font-size: 24px;
-    transition: color 0.3s;
-  }
-  
-  .navIcon:hover,
-  .navIcon.active {
-    color: #00ff00;
-  }
-  
+.bottom-bar {
+  display: block;
+
+  justify-content: space-around; /* Centers content horizontally */
+  align-items: center; /* Centers content vertically */
+  padding-top: 5%;
+  padding-left: 20%;
+  width: 45vh;
+  height: 20%;
+  background-color: #121212;
+}
+
+#icon {
+  padding-right: 10px;
+}
+
+
+.nav-icon {
+  background-color: #333;
+  border-radius: 10px;
+  box-shadow: 3px 3px 6px #000, -3px -3px 6px #38979e;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  flex-grow: 1;
+  border: none;
+  outline: none;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.nav-icon:hover, .nav-icon:focus {
+  box-shadow: 0 2px 5px rgba(0,0,0,0.5); 
+  background-color: #555;
+}
+
+.nav-icon.active {
+  background-color: #38979e; /* Highlight active button with different color */
+  color: #ffffff;
+}
+
+/* Specific style adjustments if necessary for FontAwesome icons */
+.nav-icon .fa-icon {
+  font-size: 1.5em; /* Adjust icon size as necessary */
+}

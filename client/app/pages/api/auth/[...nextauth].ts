@@ -8,15 +8,17 @@ import clientPromise from '../../../lib/mongodb';
 export const authOptions: NextAuthOptions = {
   providers: [
     GithubProvider({
+      name: 'GitHub',
       clientId: process.env.GITHUB_ID!,
       clientSecret: process.env.GITHUB_SECRET!,
     }),
     GoogleProvider({
+      name: 'Google',
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
     CredentialsProvider({
-      name: 'Credentials',
+      name: 'j',
       credentials: {
         username: { label: 'Username', type: 'text' },
         password: { label: 'Password', type: 'password' },

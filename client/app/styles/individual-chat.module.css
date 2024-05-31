@@ -1,14 +1,12 @@
-.individualChatContainer {
-    padding: 20px;
-    background-color: #0a0a0a;
-    color: white;
-  }
-  
-  .chatArea {
-    margin-left: 200px;
-    padding: 20px;
-    background-color: #1a1a1a;
-    height: calc(100vh - 50px); /* Adjust for bottom bar */
-    overflow-y: auto;
-  }
-  
+
+.chatContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-width: 60%;
+  margin: 0 auto;
+}
+
+.bottomBar {
+  flex-shrink: 0;
+}

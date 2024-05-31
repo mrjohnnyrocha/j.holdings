@@ -1,22 +1,16 @@
-import React, { useEffect, useState, useRef } from "react";
-import dynamic from 'next/dynamic';
+import React, { useState, useEffect, useRef } from "react";
+import lottie from "lottie-web";
 import Image from "next/image";
 import Message from "@/Message/Message";
-import SendButton from "@/SendButton/SendButton";
-import styles from './ChatWindow.module.css';
+import WelcomeMessage from "@/Message/WelcomeMessage";
+import InputArea from "@/InputArea/InputArea";
+import styles from "./ChatWindow.module.css";
 
-const lottie = dynamic(() => import('lottie-web'), { ssr: false });
-
-interface ChatWindowProps {
-  chatId: string | null;
-  type: string;
-}
-
-const ChatWindow: React.FC<ChatWindowProps> = ({ chatId, type }) => {
+const ChatWindow: React.FC<{ chatId: string | null; type: string }> = ({ chatId, type }) => {
   const [userInput, setUserInput] = useState<string>("");
-  const [messages, setMessages] = useState<
-    { type: string; content: string | JSX.Element; html?: string }[]
-  >([{ type: "j", content: "Welcome to the chat!" }]);
+  const [messages, setMessages] = useState<{ type: string; content: string | JSX.Element; html?: string }[]>([
+    { type: "j", content: <WelcomeMessage /> }
+  ]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const lottieContainerRef = useRef<HTMLDivElement | null>(null);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
@@ -61,40 +55,34 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ chatId, type }) => {
 
   useEffect(() => {
     if (isLoading && lottieContainerRef.current) {
-      lottie.loadAnimation({
+      const animation = lottie.loadAnimation({
         container: lottieContainerRef.current,
-        animationData: require('/public/assets/loading.json'),
+        path: "/assets/loading.json",
         renderer: "svg",
         loop: true,
         autoplay: true,
       });
+
+      return () => {
+        animation.destroy();
+      };
     }
   }, [isLoading]);
 
   return (
     <div className={styles.chatWindow}>
-      <div className={styles.chatContainer}>
+      <div id="chat-container">
         <div className={styles.logoContainer}>
-          <Image src="/assets/j_logo.png" alt="j Logo" className={styles.chatLogo} width={150} height={150} priority />
+          <Image src="/assets/j_logo.png" alt="j Logo" width={14} height={53} />
         </div>
-        <div className={styles.messagesContainer}>
-          {messages.map((message, index) => (
-            <Message key={index} text={message.content} sender={message.type} />
-          ))}
-          {isLoading && <div ref={lottieContainerRef} className={styles.loadingAnimation}></div>}
-          <div ref={messagesEndRef}></div>
-        </div>
-        <div className={styles.inputArea}>
-          <input
-            type="text"
-            id="user-input"
-            placeholder="Type your question to j and press Enter..."
-            value={userInput}
-            onChange={(e) => setUserInput(e.target.value)}
-            onKeyPress={(e) => e.key === "Enter" && sendMessage(e)}
-          />
-          <SendButton onClick={sendMessage} />
-        </div>
+        <Message messages={messages} />
+        {isLoading && <div id="lottie" ref={lottieContainerRef}></div>}
+        <div style={{ float: "left", clear: "both" }} ref={messagesEndRef}></div>
+        <InputArea
+          userInput={userInput}
+          setUserInput={setUserInput}
+          sendMessage={sendMessage}
+        />
       </div>
     </div>
   );

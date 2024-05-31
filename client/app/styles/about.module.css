@@ -1,13 +1,60 @@
-.aboutPage {
-    padding-left: 220px;
-    padding-top: 20px;
-  }
-  
-  .section {
-    margin-bottom: 20px;
-  }
-  
-  .section h2 {
-    color: #00ff00;
-  }
-  
+.aboutContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  width: 100%;
+  text-align: center;
+  background-color: #0a0a0a;
+  color: #00ff00;
+  height: 100vh;
+}
+
+.aboutLogo {
+  margin-bottom: 20px;
+}
+
+.aboutUsTitle {
+  font-size: 3em;
+  color: #00ff00;
+  margin-bottom: 20px;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.tab {
+  padding: 10px 20px;
+  background-color: #00ff00;
+  color: #0a0a0a;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.tab:hover {
+  background-color: #00cc00;
+}
+
+.tab.active {
+  background-color: #008000;
+  color: #00ff00;
+}
+
+.aboutSection {
+  margin-bottom: 20px;
+}
+
+.aboutSection h2 {
+  font-size: 1.5em;
+  color: #00ff00;
+}
+
+.aboutSection p {
+  font-size: 1em;
+  color: #ffffff;
+}

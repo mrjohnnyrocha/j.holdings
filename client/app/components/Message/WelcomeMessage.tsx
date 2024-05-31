@@ -1,11 +1,15 @@
 import React from 'react';
+import Text from '@/Text/Text';
 
-const WelcomeMessage: React.FC = () => {
-  return (
-    <div>
-      <p>Welcome to the chat! How can I assist you today?</p>
-    </div>
-  );
-};
+const welcomeMessageParts = [
+  { text: 'Welcome to j AI assistant! ', style: 'highlighted' },
+  { text: 'I can provide you insights about the professional life of ', style: 'normal' },
+  { text: 'João Rocha', style: 'highlighted' },
+  { text: '. You can ask me anything regarding his portfolio, professional experience and skills, job history and education, or any other inquiries you may have.', style: 'normal' }
+];
+
+const WelcomeMessage = () => {
+  return <Text parts={welcomeMessageParts} />;
+} 
 
 export default WelcomeMessage;

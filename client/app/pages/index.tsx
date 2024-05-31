@@ -1,4 +1,3 @@
-// pages/index.tsx
 import React, { useEffect, useState } from "react";
 import { Session } from "../types";
 import Link from "next/link";
@@ -7,6 +6,7 @@ import Image from "next/image";
 import SideBar from "@/SideBar/SideBar";
 import Preloader from "@/PreLoader/PreLoader";
 import styles from "../styles/index.module.css";
+import Header from "@/Header/Header";
 
 interface Cluster {
   id: string;
@@ -54,45 +54,44 @@ const Home: React.FC = () => {
         <Preloader />
       ) : (
         <>
-          <div className="logo-container">
-            <Image
-              src="/assets/j_logo.png"
-              alt="j Logo"
-              width={100}
-              height={100}
-              className="chat-logo"
-            />
-          </div>
+          <Header />
           <SideBar onChatChange={handleChatChange} />
-          <h1>Home Page</h1>
-          {!session ? (
-            <>
-              <p>Not signed in</p>
-              <button onClick={() => signIn()}>Sign in</button>
-            </>
-          ) : (
-            <>
-              <p>Signed in as {session.user?.email}</p>
-              <button onClick={() => signOut()}>Sign out</button>
-              <h2>MongoDB Clusters</h2>
-              <ul>
-                {clusters.map((cluster) => (
-                  <li key={cluster.id}>{cluster.name}</li>
-                ))}
-              </ul>
-            </>
-          )}
-          <Link href="/individual-chat" legacyBehavior>
-            <a
-              style={{
-                textDecoration: "underline",
-                color: "blue",
-                cursor: "pointer",
-              }}
-            >
-              Go to Chat Page
-            </a>
-          </Link>
+          <div className={styles.mainContent}>
+            <div className={styles.logoContainer}>
+              <Image
+                src="/assets/j_logo.png"
+                alt="j Logo"
+                width={100}
+                height={100}
+                className={styles.logo}
+              />
+            </div>
+            <h1>Home Page</h1>
+            {!session ? (
+              <>
+                <p>Not signed in</p>
+                <button className={styles.button} onClick={() => signIn()}>
+                  Sign in
+                </button>
+              </>
+            ) : (
+              <>
+                <p>Signed in as {session.user?.email}</p>
+                <button className={styles.button} onClick={() => signOut()}>
+                  Sign out
+                </button>
+                <h2>MongoDB Clusters</h2>
+                <ul>
+                  {clusters.map((cluster) => (
+                    <li key={cluster.id}>{cluster.name}</li>
+                  ))}
+                </ul>
+              </>
+            )}
+            <Link href="/individual-chat" legacyBehavior>
+              <a className={styles.link}>Go to Chat Page</a>
+            </Link>
+          </div>
         </>
       )}
     </div>

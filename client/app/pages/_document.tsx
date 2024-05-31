@@ -1,4 +1,3 @@
-// pages/_document.tsx
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 
 class MyDocument extends Document {
@@ -6,9 +5,18 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-          <link href="https://fonts.googleapis.com/css2?family=Courier+New&display=swap" rel="stylesheet" />
+          <script
+            type="module"
+            src="https://cdn.jsdelivr.net/npm/friendly-challenge@0.9.14/widget.module.min.js"
+            async
+            defer
+          ></script>
+          <script
+            noModule
+            src="https://cdn.jsdelivr.net/npm/friendly-challenge@0.9.14/widget.min.js"
+            async
+            defer
+          ></script>
         </Head>
         <body>
           <Main />

@@ -1,21 +1,76 @@
 .message {
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 10px;
-    max-width: 70%;
-  }
+  max-width: 95%;
+  margin: 10px 0;
+  border-radius: 10px;
+  word-wrap: break-word;
+  font-family: 'Courier New', Courier, monospace;
+  justify-self: center;
+}
+
+.user {
+  background-color: #333333;
+  color: #ffffff;
+  text-align: right;
+  padding-right: 5px;
+  border-radius: 10px 10px 0 10px;
+  align-self: right;
+}
+.user::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: -10px;
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+  border-right-color: #333333;
+  border-left: 0;
+  border-right: 0;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+
+.jIcon {
+  height: 17px;
+  width: 12px;
+  margin-left: 5px;
+}
+
+.j {
+  background-color: #121212;
+  color: #38979e;
   
-  .user {
-    background-color: #333333;
-    color: white;
-    align-self: flex-end;
-  }
-  
-  .j {
-    background-color: #121212;
-    color: #38979e;
-    align-self: flex-start;
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: bold;
-  }
-  
+  text-align: left;
+  font-family: 'Courier New', Courier, monospace;
+
+  position: relative;
+  padding-left: 5px;
+
+  border: 1px solid #161515;
+  border-style: groove;
+  box-shadow: 1 2px 4px #333333;
+  border-radius: 13px;
+  border-bottom-left-radius: 0;
+  padding: 5px;
+  align-self: left;
+}
+.message.j::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+  border-right-color: #121212;
+  border-left: 0;
+  border-right: 0;
+  margin-top: 5px;
+  margin-left: -20px;
+}
+.messagesContainer {
+  width: 95%;
+  padding-left: 2%;
+  display: flex;
+  flex-direction: column;
+}

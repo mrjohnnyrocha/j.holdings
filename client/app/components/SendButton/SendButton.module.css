@@ -1,16 +1,22 @@
 .sendButton {
-    padding: 10px 20px;
-    font-family: 'Courier New', Courier, monospace;
-    background-color: #4CAF50;
-    border: none;
-    color: white;
-    cursor: pointer;
-    align-items: baseline;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .sendButton:hover {
-    background-color: #367c39;
-  }
-  
+  padding: 0px 20px;
+  font-family: 'Courier New', Courier, monospace;
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  cursor: pointer;
+  align-items: center;
+  display: flex;
+  flex-grow: auto;
+  justify-content: center;
+}
+
+.sendButton:hover {
+  background-color: #367c39;
+}
+
+.jIcon {
+  height: 17px;
+  width: 12px;
+  margin-left: 5px;
+}

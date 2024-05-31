@@ -1,13 +1,15 @@
 .preLoader {
+    position: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    z-index: 50;
+    height: 100rm;
     background-color: #0a0a0a;
   }
   
   .flashingLogo {
-    animation: flash 1s ease-in-out;
+    animation: spin 30s linear infinte;
   }
   
   @keyframes flash {
