@@ -1,24 +1,42 @@
+@keyframes flash {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes moveAndShrink {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    transform: translate(5px, 2px) scale(0.01);
+  }
+}
+
 .preLoader {
-    position: fixed;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 50;
-    height: 100rm;
-    background-color: #0a0a0a;
-  }
-  
-  .flashingLogo {
-    animation: spin 30s linear infinte;
-  }
-  
-  @keyframes flash {
-    0%,
-    100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0;
-    }
-  }
-  
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+  z-index: 50;
+  transition: all 1s ease;
+}
+
+.logo {
+  width: 8rem;
+  height: 8rem;
+  animation: flash 1s infinite;
+}
+
+.logo.move {
+  animation: none;
+  animation: moveAndShrink 1s forwards;
+}

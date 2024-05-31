@@ -4,7 +4,9 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import SideBar from "@/SideBar/SideBar";
 import FriendlyCaptcha from "@/FriendlyCaptcha/FriendlyCaptcha";
+import Separator from "@/Separator/Separator";
 import styles from "../../styles/auth/sign-up.module.css";
+import textStyles from "../../components/Text/Text.module.css";
 
 const SignUp: React.FC = () => {
   const [providers, setProviders] = React.useState<any>(null);
@@ -74,36 +76,36 @@ const SignUp: React.FC = () => {
                 </button>
               ))}
           </div>
-          <div className={styles.separator}>OR</div>
+          <Separator />
           <form onSubmit={(e) => e.preventDefault()}>
             <div className={styles.inputGroup}>
               <div className={styles.inputContainer}>
-                <label>First Name</label>
+                <label className={textStyles.highlighted}>First Name</label>
                 <input type="text" name="firstName" value={formData.firstName} onChange={handleInputChange} required />
               </div>
               <div className={styles.inputContainer}>
-                <label>Last Name</label>
+                <label className={textStyles.highlighted}>Last Name</label>
                 <input type="text" name="lastName" value={formData.lastName} onChange={handleInputChange} required />
               </div>
             </div>
             <div className={styles.inputContainer}>
-              <label>Username (Optional)</label>
+              <label className={textStyles.highlighted}>Username (Optional)</label>
               <input type="text" name="username" value={formData.username} onChange={handleInputChange} />
             </div>
             <div className={styles.inputContainer}>
-              <label>Email</label>
+              <label className={textStyles.highlighted}>Email</label>
               <input type="email" name="email" value={formData.email} onChange={handleInputChange} required />
             </div>
             <div className={styles.inputContainer}>
-              <label>Company Name (Optional)</label>
+              <label className={textStyles.highlighted}>Company Name (Optional)</label>
               <input type="text" name="companyName" value={formData.companyName} onChange={handleInputChange} />
             </div>
             <div className={styles.inputContainer}>
-              <label>Password</label>
+              <label className={textStyles.highlighted}>Password</label>
               <input type="password" name="password" value={formData.password} onChange={handleInputChange} required />
             </div>
             <div className={styles.inputContainer}>
-              <label>Repeat Password</label>
+              <label className={textStyles.highlighted}>Repeat Password</label>
               <input type="password" name="repeatPassword" value={formData.repeatPassword} onChange={handleInputChange} required />
             </div>
             {captchaVisible && (
@@ -112,7 +114,7 @@ const SignUp: React.FC = () => {
               </div>
             )}
             <button type="submit" className={styles.authButton}>
-              Sign Up
+              Sign up with <div id='icon'><img src={'../assets/j_icon.png'} alt="j Icon" className={styles.jIcon} /></div>
             </button>
           </form>
         </div>

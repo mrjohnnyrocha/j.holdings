@@ -1,30 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { Session } from "../types";
-import Link from "next/link";
+import React, { useState, useEffect } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
+import Link from "next/link";
+import SideBar from "../components/SideBar/SideBar";
 import Image from "next/image";
-import SideBar from "@/SideBar/SideBar";
-import Preloader from "@/PreLoader/PreLoader";
 import styles from "../styles/index.module.css";
-import Header from "@/Header/Header";
-
-interface Cluster {
-  id: string;
-  name: string;
-}
 
 const Home: React.FC = () => {
-  const { data: session, status } = useSession() as {
-    data: Session | null;
-    status: string;
-  };
-  const [clusters, setClusters] = useState<Cluster[]>([]);
-  const [currentChat, setCurrentChat] = useState<{
-    id: string | null;
-    type: string;
-  }>({ id: null, type: "individual" });
-
-  const [showPreloader, setShowPreloader] = useState(true);
+  const { data: session, status } = useSession();
+  const [clusters, setClusters] = useState([]);
+  const [currentChat, setCurrentChat] = useState({ id: null, type: "individual" });
+  const [showPreLoader, setShowPreLoader] = useState(true);
 
   useEffect(() => {
     if (session) {
@@ -35,11 +20,8 @@ const Home: React.FC = () => {
   }, [session]);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowPreloader(false);
-    }, 1000); // Hide preloader after 1 second
-
-    return () => clearTimeout(timer);
+    const preLoaderTimeout = setTimeout(() => setShowPreLoader(false), 3000);
+    return () => clearTimeout(preLoaderTimeout);
   }, []);
 
   if (status === "loading") return <p>Loading...</p>;
@@ -50,50 +32,38 @@ const Home: React.FC = () => {
 
   return (
     <div className={styles.indexContainer}>
-      {showPreloader ? (
-        <Preloader />
-      ) : (
-        <>
-          <Header />
-          <SideBar onChatChange={handleChatChange} />
-          <div className={styles.mainContent}>
-            <div className={styles.logoContainer}>
-              <Image
-                src="/assets/j_logo.png"
-                alt="j Logo"
-                width={100}
-                height={100}
-                className={styles.logo}
-              />
-            </div>
-            <h1>Home Page</h1>
-            {!session ? (
-              <>
-                <p>Not signed in</p>
-                <button className={styles.button} onClick={() => signIn()}>
-                  Sign in
-                </button>
-              </>
-            ) : (
-              <>
-                <p>Signed in as {session.user?.email}</p>
-                <button className={styles.button} onClick={() => signOut()}>
-                  Sign out
-                </button>
-                <h2>MongoDB Clusters</h2>
-                <ul>
-                  {clusters.map((cluster) => (
-                    <li key={cluster.id}>{cluster.name}</li>
-                  ))}
-                </ul>
-              </>
-            )}
-            <Link href="/individual-chat" legacyBehavior>
-              <a className={styles.link}>Go to Chat Page</a>
-            </Link>
-          </div>
-        </>
-      )}
+      <SideBar onChatChange={handleChatChange} />
+      <div className={styles.mainContent}>
+        <h1>Welcome to YJ4</h1>
+        <p>Your fully-fledged solution for seamless communication.</p>
+        {!session ? (
+          <>
+            <button className={styles.button} onClick={() => signIn()}>
+              Sign in
+            </button>
+            <button className={styles.button} onClick={() => signUp()}>
+              Sign up
+            </button>
+          </>
+        ) : (
+          <>
+            <p>Signed in as {session.user?.email}</p>
+            <button className={styles.button} onClick={() => signOut()}>
+              Sign out
+            </button>
+            <h2>MongoDB Clusters</h2>
+            <ul>
+              {clusters.map((cluster) => (
+                <li key={cluster.id}>{cluster.name}</li>
+              ))}
+            </ul>
+          </>
+        )}
+        <Link href="/individual-chat" legacyBehavior>
+          <a className={styles.link}>Go to Chat Page</a>
+        </Link>
+        <p>Experience the power of J4 for all your communication needs.</p>
+      </div>
     </div>
   );
 };

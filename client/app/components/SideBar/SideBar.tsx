@@ -1,12 +1,12 @@
-// components/SideBar/SideBar.tsx
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
-import SignOutButton from "@/SignOutButton/SignOutButton";
+import SignOutButton from "../SignOutButton/SignOutButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faUsers, faGlobe } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import Image from "next/image";
+import SearchBar from "./SearchBar/SearchBar";
 import styles from "./SideBar.module.css";
 
 interface SideBarProps {
@@ -65,6 +65,7 @@ const SideBar: React.FC<SideBarProps> = ({ onChatChange }) => {
         <div className={styles.sidebarLogo}>
           <Image src="/assets/j_logo.png" alt="j Logo" width={50} height={50} />
         </div>
+        <SearchBar />
         <a
           className={activeTab === "individual" ? styles.active : ""}
           onClick={() => handleTabChange("individual")}

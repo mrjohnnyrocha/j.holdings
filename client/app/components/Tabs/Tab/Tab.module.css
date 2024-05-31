@@ -1,0 +1,22 @@
+.tab {
+  padding: 15px 30px;
+  cursor: pointer;
+  background-color: #38979e;
+  border-radius: 10px;
+  transition: background-color 0.3s, color 0.3s, transform 0.3s;
+  margin: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tab:hover {
+  background-color: #00ffcc;
+  transform: translateY(-5px);
+}
+
+.tab.active {
+  background-color: #38979e;
+  color: white;
+}
+

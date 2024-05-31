@@ -12,7 +12,11 @@
   padding: 20px;
   margin-left: 200px; /* Adjusting to ensure it doesn't overlap with the sidebar */
 }
-
+.jIcon {
+  height: 17px;
+  width: 12px;
+  margin-left: 5px;
+}
 .logoContainer {
   margin-bottom: 20px;
 }
@@ -36,6 +40,8 @@
   font-size: 36px;
   margin-bottom: 20px;
   color: #38979e;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
 }
 
 .inputGroup {
@@ -78,6 +84,8 @@
 .button {
   background-color: black;
   color: #38979e;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
   border: none;
   padding: 10px;
   cursor: pointer;
@@ -105,11 +113,15 @@
   margin-bottom: 20px;
   background-color: #0a0a0a;
   color: #38979e;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
 }
 
 .authButton {
   background-color: black;
   color: #38979e;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
   border: none;
   padding: 10px;
   cursor: pointer;

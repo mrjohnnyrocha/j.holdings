@@ -1,19 +1,49 @@
-import React, { useEffect, useState } from 'react';
-import Image from 'next/image';
-import styles from './Header.module.css';
+import React, { useEffect, useState, RefObject } from "react";
+import MainLogo from "../MainLogo/MainLogo";
+import styles from "./Header.module.css";
 
-const Header: React.FC = () => {
-  const [visible, setVisible] = useState(false);
+interface HeaderProps {
+  targetRef: RefObject<HTMLDivElement>;
+}
+
+const Header: React.FC<HeaderProps> = ({ targetRef }) => {
+  const [visible, setVisible] = useState(true);
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
 
   useEffect(() => {
-    setVisible(true);
-    const timer = setTimeout(() => setVisible(false), 1250);
+    const timer = setTimeout(() => {
+      setVisible(false);
+    }, 3300); // 3.3 seconds
+
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollPosition = window.pageYOffset;
+
+      if (prevScrollPos >= currentScrollPosition || currentScrollPosition < 10) {
+        setVisible(true);
+      } else {
+        setVisible(false);
+      }
+
+      setPrevScrollPos(currentScrollPosition);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [prevScrollPos]);
+
   return (
-    <div id="logoContainer" className={`${styles.header} ${visible ? styles.show : styles.hide}`}>
-      <Image src="/assets/j_logo.png" alt="j Logo" width={100} height={100} className={styles.logo} />
+    <div
+      id="logoContainer"
+      className={`${styles.header} ${visible ? styles.show : styles.hide}`}
+    >
+      <MainLogo ref={targetRef} />
     </div>
   );
 };

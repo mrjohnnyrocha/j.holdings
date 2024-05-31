@@ -17,24 +17,24 @@ export const authOptions: NextAuthOptions = {
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
-    CredentialsProvider({
-      name: 'j',
-      credentials: {
-        username: { label: 'Username', type: 'text' },
-        password: { label: 'Password', type: 'password' },
-      },
-      authorize: async (credentials) => {
-        const client = await clientPromise;
-        const db = client.db();
-        const user = await db.collection('users').findOne({ email: credentials.username });
+    // CredentialsProvider({
+    //   name: 'j',
+    //   credentials: {
+    //     username: { label: 'Username', type: 'text' },
+    //     password: { label: 'Password', type: 'password' },
+    //   },
+    //   authorize: async (credentials) => {
+    //     const client = await clientPromise;
+    //     const db = client.db();
+    //     const user = await db.collection('users').findOne({ email: credentials.username });
 
-        if (user && user.password === credentials.password) {
-          return user;
-        } else {
-          throw new Error('User not found or incorrect password. Please sign up.');
-        }
-      },
-    }),
+    //     if (user && user.password === credentials.password) {
+    //       return user;
+    //     } else {
+    //       throw new Error('User not found or incorrect password. Please sign up.');
+    //     }
+    //   },
+    // }),
   ],
   adapter: MongoDBAdapter(clientPromise),
   secret: process.env.NEXTAUTH_SECRET,
