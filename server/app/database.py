@@ -1,6 +1,6 @@
 # database.py
 from motor.motor_asyncio import AsyncIOMotorClient
-from pydantic import BaseSettings
+from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
     MONGODB_URI: str

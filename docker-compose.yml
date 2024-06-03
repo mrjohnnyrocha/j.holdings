@@ -11,6 +11,7 @@ services:
       MONGODB_URI: ${MONGODB_URI:-default}
       DATABASE_NAME: ${DATABASE_NAME:-default}
       SECRET: ${SECRET:-default}
+      APP_ENV: ${APP_ENV:-development}
     env_file:
       - .env
     healthcheck:
@@ -31,7 +32,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      REACT_APP_API_URL: http://backend:8000
+      NEXT_PUBLIC_API_URL: http://backend:8000
     env_file:
       - .env
     healthcheck:
@@ -51,7 +52,7 @@ services:
       dockerfile: Dockerfile.nginx
     ports:
       - "8080:8080"
-      - "433:8443"
+      - "443:8443"
     environment:
       SERVER_NAME: ${SERVER_NAME:-localhost}
     env_file:
@@ -73,15 +74,11 @@ services:
 
   mongo:
     image: mongo
-    build:
-      context: ./server  
-      dockerfile: Dockerfile
     ports:
       - "3017:27017"
     environment:
-      MONGO_INITDB_ROOT_USERNAME: $MONGO_INITDB_ROOT_USERNAME:-default}
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME:-default}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD:-default}
-      SECRET: ${SECRET:-default}
     env_file:
       - .env
     healthcheck:
@@ -94,8 +91,6 @@ services:
         limits:
           cpus: "0.5"
           memory: "512M"
-
-
 
   alertmanager:
     image: prom/alertmanager:latest

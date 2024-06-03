@@ -1,8 +1,0 @@
-body {
-  background-color: black;
-  transition: background-color 2s ease-in-out;
-}
-
-body.fade-out {
-  background-color: #171717; /* or your normal background color */
-}

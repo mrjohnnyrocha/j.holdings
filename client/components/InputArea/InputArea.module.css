@@ -1,0 +1,22 @@
+.inputArea {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  width: 95%;
+  height: 7vh;
+  margin: 0 auto;
+}
+
+.userInput {
+  background-color: #333333;
+  border: none;
+  color: white;
+  font-family: 'Courier New', Courier, monospace;
+  flex-grow: 1;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.sendButton {
+  margin-left: 10px;
+}

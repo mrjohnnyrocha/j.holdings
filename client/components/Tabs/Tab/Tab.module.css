@@ -1,0 +1,19 @@
+.tab {
+  flex: 1;
+  text-align: center;
+  padding: 10px;
+  margin: 0 5px;
+  background-color: #444;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.tab:hover {
+  background-color: #555;
+}
+
+.activeTab {
+  background-color: #666;
+}

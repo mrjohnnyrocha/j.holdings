@@ -1,0 +1,27 @@
+/* styles/Text.module.css */
+
+#logo-text {
+  font-size: 1.5em;
+  font-weight: bold;
+  text-align: center;
+  font-family: Impact;
+  color: #ffffff;
+}
+
+.highlighted {
+  font-size: 18px;
+  color: white;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.normal {
+  color: #38979e;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+}
+
+.copyright {
+  font-size: 0.4rem;
+  color: #aaa;
+  margin-top: 10px;
+}

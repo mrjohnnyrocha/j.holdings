@@ -1,0 +1,17 @@
+/* styles/globals.css */
+
+body {
+  transition: background-color 2s ease-in-out;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: black;
+  color: #333;
+}
+
+body.fade-out {
+  background-color: #171717; /* or your normal background color */
+}
+
+main {
+  padding: 20px;
+}

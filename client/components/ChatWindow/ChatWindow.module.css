@@ -1,0 +1,44 @@
+.chatWindow {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 100%;
+  margin-left: 25%;
+  margin-right: 30%;
+  background-color: #2a2a2a; /* Dark theme for chat area */
+  overflow-y: auto;
+  border: none; /* Removes any border within the chat-area */
+  max-width: 100%;
+  background-color: #171717;
+  border: 2px solid #121212;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-bottom: 50px; /* Space for BottomBar */
+  justify-content: center;
+}
+
+.logoContainer {
+  margin-bottom: 20px;
+}
+
+.logo {
+  width: 100%;
+  max-height: 60px;
+  display: block;
+  margin: 0 auto 10px;
+}
+
+.messagesContainer {
+  flex-grow: 1;
+  overflow-y: auto;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.loadingAnimation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50vw;
+  height: 50vh;
+}

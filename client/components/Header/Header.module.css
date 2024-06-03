@@ -1,0 +1,20 @@
+.header {
+  padding: 0;
+  transition: top 3.3s;
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+  background-color: #1a1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.show {
+  top: 0;
+}
+
+.hide {
+  top: -100px; /* Adjust based on header height */
+  transition: top 3.3s;
+}

@@ -209,7 +209,6 @@ debug.log
 *.tgz
 
 # TypeScript
-tsconfig.json
 tsbuildinfo
 
 # Optional eslint cache

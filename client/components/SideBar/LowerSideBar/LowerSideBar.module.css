@@ -1,0 +1,76 @@
+/* components/SideBar/LowerSideBar/LowerSideBar.module.css */
+.lowerSidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 60px; /* initial width */
+  transition: width 0.3s;
+}
+
+.lowerSidebar:hover {
+  width: 20%; /* expanded width */
+}
+
+.lowerSidebar a {
+  color: white;
+  text-decoration: none;
+  padding: 10px;
+  text-align: center;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.lowerSidebar a:hover {
+  background-color: #09704f;
+  color: #38979e; /* Hover color */
+}
+
+.lowerSidebar a.active {
+  background-color: #38979e;
+  color: black; /* Active tab color */
+}
+
+.subSidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.subSidebar a {
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.subSidebar a:hover {
+  background-color: #09704f;
+  color: #38979e; /* Hover color */
+}
+
+.subSidebar a.active {
+  background-color: #38979e;
+  color: black; /* Active tab color */
+}
+
+.lowerSidebar a img,
+.subSidebar a img {
+  margin-right: 10px;
+}
+
+.itemText {
+  display: none;
+  white-space: nowrap;
+}
+
+.lowerSidebar:hover .itemText {
+  display: inline-block;
+}

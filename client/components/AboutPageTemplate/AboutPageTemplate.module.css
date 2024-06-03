@@ -1,0 +1,16 @@
+.aboutPageTemplate {
+  display: flex;
+  height: 100vh;
+}
+
+.mainContent {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.content {
+  flex: 1;
+}

@@ -1,16 +1,23 @@
-# ./client/Dockerfile
-FROM node:22-alpine
+# Use an official Node.js runtime as the base image
+FROM node:20.12.2
 
-WORKDIR /client
+# Create and change to the app directory
+WORKDIR /app
 
+# Copy the package.json and package-lock.json files
 COPY package*.json ./
 
-RUN npm install -g serve
+# Install the dependencies
+RUN npm install
 
-COPY . ./
+# Copy the rest of the application code
+COPY . .
 
+# Build the Next.js application
+RUN npm run build
+
+# Expose the application on port 3000
 EXPOSE 3000
 
-CMD ["serve", "-s", "dist"]
-
-#CMD ["npx", "serve", "-s", "dist", "-l", "9001"]
+# Start the Next.js application
+CMD ["npm", "start"]

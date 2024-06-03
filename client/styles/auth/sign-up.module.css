@@ -1,0 +1,114 @@
+.pageContainer {
+  display: flex;
+  flex-direction: row;
+  overflow-y: auto;
+  background-color: #0a0a0a; /* Ensure the background color matches your theme */
+}
+
+.signUpContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  background-color: #1a1a1a;
+  color: white;
+  text-align: center;
+  padding: 20px;  
+  overflow-y: auto;
+}
+
+.logoContainer {
+  margin-bottom: 20px;
+}
+
+.logo {
+  width: 100px;
+  height: auto;
+}
+
+.formContainer {
+  width: 100%;
+  max-width: 400px;
+}
+
+.oauthButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.button {
+  background-color: black;
+  color: #38979e;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.button:hover {
+  background-color: #00cc00;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.inputContainer {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.inputContainer label {
+  display: block;
+  margin-bottom: 5px;
+  color: white;
+}
+
+.inputContainer input {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #333;
+  color: white;
+}
+
+.captcha {
+  margin-bottom: 20px;
+}
+
+.authButton {
+  background-color: black;
+  color: #38979e;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 5px;
+  margin-top: 20px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.authButton:hover {
+  background-color: #00cc00;
+}
+
+.jIcon {
+  height: 17px;
+  width: 12px;
+  margin-left: 5px;
+}

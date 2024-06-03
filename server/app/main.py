@@ -13,7 +13,7 @@ from dotenv import load_dotenv
 env = load_dotenv()
 logger = logging.getLogger(__name__)
 
-from .database import database, settings
+#from .database import database, settings
 from .scripts import CONTEXT, SAFETY_GATE
 from .graph import Graph
 
@@ -121,25 +121,25 @@ async def generate_responses(
         )
 
 
-@app.on_event("startup")
-async def startup_db_client():
-    client = AsyncIOMotorClient(settings.MONGODB_URI)
-    database = client[settings.DATABASE_NAME]
+# @app.on_event("startup")
+# async def startup_db_client():
+#     client = AsyncIOMotorClient(settings.MONGODB_URI)
+#     database = client[settings.DATABASE_NAME]
 
-@app.on_event("shutdown")
-async def shutdown_db_client():
-    database.client.close()
+# @app.on_event("shutdown")
+# async def shutdown_db_client():
+#     database.client.close()
 
 @app.get("/")
 async def read_root():
     return {"message": "Welcome to the FastAPI with MongoDB"}
 
-# Example route using the database
-@app.post("/users/")
-async def create_user(user: dict):
-    user_collection = database.get_collection("users")
-    result = await user_collection.insert_one(user)
-    return {"id": str(result.inserted_id)}
+# # Example route using the database
+# @app.post("/users/")
+# async def create_user(user: dict):
+#     user_collection = database.get_collection("users")
+#     result = await user_collection.insert_one(user)
+#     return {"id": str(result.inserted_id)}
 
 
 if __name__ == "__main__":
