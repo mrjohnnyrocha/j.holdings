@@ -1,36 +1,40 @@
-/* components/SideBar/LowerSideBar/LowerSideBar.module.css */
 .lowerSidebar {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 60px; /* initial width */
+  width: 95%; /* initial width */
   transition: width 0.3s;
 }
 
 .lowerSidebar:hover {
-  width: 20%; /* expanded width */
+  width: 100%; /* expanded width */
 }
 
 .lowerSidebar a {
-  color: white;
+  color: #38979e;
   text-decoration: none;
   padding: 10px;
-  text-align: center;
   width: 100%;
+  text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease, justify-content 0.3s ease;
+}
+
+.lowerSidebar:hover a {
+  justify-content: flex-start;
+  text-align: left;
 }
 
 .lowerSidebar a:hover {
-  background-color: #09704f;
+  background-color: #232a27;
   color: #38979e; /* Hover color */
 }
 
 .lowerSidebar a.active {
   background-color: #38979e;
-  color: black; /* Active tab color */
+  color: white; /* Active tab color */
 }
 
 .subSidebar {
@@ -38,16 +42,19 @@
   flex-direction: column;
   align-items: center;
   margin-top: 10px;
+  margin-left: 10px; /* Adjust margin for spacing */
+  width: calc(100% - 10px); /* Ensure it doesn't overflow */
+  background-color: #1b1f23; /* Same background as main sidebar */
 }
 
 .subSidebar a {
-  color: white;
+  color: #38979e;
   text-decoration: none;
-  text-align: center;
-  width: 100%;
+  padding: 10px;
+  width: 90%; /* Adjust width for better spacing */
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -59,6 +66,13 @@
 .subSidebar a.active {
   background-color: #38979e;
   color: black; /* Active tab color */
+}
+
+.subSidebar .folderStructure {
+  border-left: 2px solid #38979e;
+  margin-left: 15px;
+  padding-left: 10px;
+  width: calc(100% - 25px);
 }
 
 .lowerSidebar a img,

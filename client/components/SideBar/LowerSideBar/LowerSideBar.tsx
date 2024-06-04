@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -7,19 +7,28 @@ import {
   faGlobe,
   faCaretDown,
   faCaretRight,
+  faComment,
+  faFolder,
+  faBook,
+  faSignIn,
+  faPlusCircle,
+  faIdCard,
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import SignOutButton from "../../SignOutButton/SignOutButton";
 import styles from "./LowerSideBar.module.css";
-import textStyles from "../../Text/Text.module.css";
 
 const LowerSideBar: React.FC = () => {
   const { data: session, status } = useSession();
   const [activeTab, setActiveTab] = useState<string>("individual");
   const [isAboutOpen, setIsAboutOpen] = useState<boolean>(false);
   const router = useRouter();
+
+  useEffect(() => {
+    console.log("Active tab changed to:", activeTab);
+  }, [activeTab]);
 
   const handleTabChange = (chatType: string) => {
     setActiveTab(chatType);
@@ -33,9 +42,22 @@ const LowerSideBar: React.FC = () => {
       case "community":
         router.push("/community-chat");
         break;
+      case "about-j":
+        router.push("/about/about-j");
+        break;
+      case "about-joao-rocha":
+        router.push("/about/about-joao-rocha");
+        break;
+      case "portfolio":
+        router.push("/about/portfolio");
+        break;
       default:
         break;
     }
+  };
+
+  const handleAboutToggle = () => {
+    setIsAboutOpen(!isAboutOpen);
   };
 
   if (status === "loading") {
@@ -49,8 +71,8 @@ const LowerSideBar: React.FC = () => {
           }`}
           onClick={() => handleTabChange("individual")}
         >
-          <FontAwesomeIcon icon={faUser} />
-          <span className={styles.itemText}>Individual Chat</span>
+          <FontAwesomeIcon icon={faComment} />
+          <span className={styles.itemText}>Chat</span>
         </a>
         <a
           className={`${styles.sidebarItem} ${
@@ -74,10 +96,10 @@ const LowerSideBar: React.FC = () => {
           className={`${styles.sidebarItem} ${
             activeTab === "about" ? styles.active : ""
           }`}
-          onClick={() => setIsAboutOpen(!isAboutOpen)}
+          onClick={handleAboutToggle}
         >
+          <FontAwesomeIcon icon={faFolder} />
           <span className={styles.itemText}>
-            <Image src="/assets/about.jpg" width={7} height={12} alt="About" />
             About
             {isAboutOpen ? (
               <FontAwesomeIcon icon={faCaretDown} />
@@ -89,36 +111,30 @@ const LowerSideBar: React.FC = () => {
         {isAboutOpen && (
           <div className={styles.subSidebar}>
             <a
-              href="/about/about-j"
-              target="_blank"
               className={`${styles.sidebarItem} ${
                 activeTab === "about-j" ? styles.active : ""
               }`}
               onClick={() => handleTabChange("about-j")}
             >
-              <span className={styles.itemText}>
-                <Image src="/assets/j_logo.png" width={3} height={7} alt="j" />
-                About J
-              </span>
+              <Image src="/assets/j_logo.png" width={7} height={27} alt="j" />
+              <span className={styles.itemText}>About J</span>
             </a>
             <a
-              href="/about/about-joao-rocha"
-              target="_blank"
               className={`${styles.sidebarItem} ${
                 activeTab === "about-joao-rocha" ? styles.active : ""
               }`}
               onClick={() => handleTabChange("about-joao-rocha")}
             >
+              <FontAwesomeIcon icon={faIdCard} />
               <span className={styles.itemText}>About João Rocha</span>
             </a>
             <a
-              href="/about/portfolio"
-              target="_blank"
               className={`${styles.sidebarItem} ${
                 activeTab === "portfolio" ? styles.active : ""
               }`}
               onClick={() => handleTabChange("portfolio")}
             >
+              <FontAwesomeIcon icon={faBook} />
               <span className={styles.itemText}>Portfolio</span>
             </a>
           </div>
@@ -139,15 +155,8 @@ const LowerSideBar: React.FC = () => {
                 }`}
                 onClick={() => handleTabChange("signin")}
               >
-                <span className={styles.itemText}>
-                  <Image
-                    src="/assets/sign-in.jpg"
-                    width={7}
-                    height={12}
-                    alt="Sign In"
-                  />
-                  Sign In
-                </span>
+                <FontAwesomeIcon icon={faSignIn} />
+                <span className={styles.itemText}>Sign In</span>
               </a>
             </Link>
             <Link href="/auth/sign-up" passHref legacyBehavior>
@@ -157,15 +166,8 @@ const LowerSideBar: React.FC = () => {
                 }`}
                 onClick={() => handleTabChange("signup")}
               >
-                <span className={styles.itemText}>
-                  <Image
-                    src="/assets/sign-up.jpg"
-                    width={7}
-                    height={12}
-                    alt="Sign Up"
-                  />
-                  Sign Up
-                </span>
+                <FontAwesomeIcon icon={faPlusCircle} />
+                <span className={styles.itemText}>Sign Up</span>
               </a>
             </Link>
           </>
